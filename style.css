@@ -169,13 +169,41 @@ body {
 }
 
 .emergency-card {
-    background: white;
-    color: #333;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    color: #1E293B;
+    padding: 2.5rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 
+                0 0 0 1px rgba(255, 255, 255, 0.2);
     text-align: center;
-    max-width: 300px;
+    max-width: 320px;
+    position: relative;
+    overflow: hidden;
+}
+
+.emergency-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #DE2910, #FF6B35);
+}
+
+.emergency-card h4 {
+    color: #DE2910;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.emergency-card p {
+    color: #64748B;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
 }
 
 .emergency-card h4 {
@@ -184,16 +212,25 @@ body {
 }
 
 .btn-whatsapp {
-    background: #25D366;
+    background: linear-gradient(135deg, #25D366, #128C7E);
     color: white;
-    padding: 12px 20px;
-    border-radius: 5px;
+    padding: 14px 24px;
+    border-radius: 8px;
     text-decoration: none;
     display: block;
     margin-top: 1rem;
     font-weight: 600;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 1rem;
 }
 
+.btn-whatsapp:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+    background: linear-gradient(135deg, #128C7E, #25D366);
+}
 .btn-whatsapp:hover {
     background: #128C7E;
 }
@@ -501,6 +538,7 @@ body {
     }
 
 }
+
 
 
 
