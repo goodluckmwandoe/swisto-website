@@ -33,7 +33,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
+    height: 100px;
 }
 
 .nav-logo h2 {
@@ -489,4 +489,5 @@ body {
     .service-categories {
         grid-template-columns: 1fr;
     }
+
 }
