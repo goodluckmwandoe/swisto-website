@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
-<body class="dashboard-page">
+<body>
     <!-- Dashboard Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
                 <img src="swisto-logo.png" alt="SWISTO Kenya">
-                <span style="margin-left: 10px; font-weight: 600; color: white;">Hotel Dashboard</span>
+                <span style="margin-left: 10px; font-weight: 600; color: #333;">Hotel Dashboard</span>
             </div>
             <div class="nav-menu">
                 <a href="#overview" class="nav-link active"><i class="fas fa-home"></i> Overview</a>
@@ -23,7 +23,7 @@
             </div>
             <div class="nav-user">
                 <span class="user-name">Sarova Whitesands</span>
-                <div class="user-avatar">
+                <div class="user-avatar" style="background: var(--primary); color: white;">
                     <i class="fas fa-hotel"></i>
                 </div>
             </div>
@@ -35,207 +35,128 @@
         </div>
     </nav>
 
-    <!-- DASHBOARD SECTION -->
-    <section class="dashboard-section">
+    <!-- DASHBOARD CONTENT -->
+    <section class="dashboard-content" style="padding: 120px 0 80px; margin-top: 80px;">
         <div class="container">
             <!-- Dashboard Header -->
-            <div class="dashboard-header">
+            <div class="dashboard-header-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center;">
                 <div>
-                    <h1>Welcome back, Sarova Whitesands</h1>
-                    <p>Ready to handle your emergency supply needs. You have 3 active orders.</p>
+                    <h1 style="color: #1E293B; margin-bottom: 0.5rem; font-size: 2.5rem;">Welcome back, Sarova Whitesands</h1>
+                    <p style="color: #64748B; font-size: 1.2rem; margin: 0;">Ready to handle your emergency supply needs. You have 3 active orders.</p>
                 </div>
-                <div class="quick-actions">
-                    <div class="quick-action-btn" onclick="openQuickOrder()">
-                        <i class="fas fa-plus-circle"></i>
-                        <span>New Order</span>
-                    </div>
-                    <div class="quick-action-btn" onclick="openSupplierSearch()">
-                        <i class="fas fa-search"></i>
-                        <span>Find Suppliers</span>
-                    </div>
+                <div class="quick-actions-light" style="display: flex; gap: 1rem;">
+                    <button class="btn btn-primary" onclick="openQuickOrder()">
+                        <i class="fas fa-plus-circle"></i> New Order
+                    </button>
+                    <button class="btn btn-outline" onclick="openSupplierSearch()">
+                        <i class="fas fa-search"></i> Find Suppliers
+                    </button>
                 </div>
             </div>
 
             <!-- Stats Grid -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon pending">
+            <div class="stats-grid-light" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                <div class="stat-card-light" style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease;">
+                    <div class="stat-icon-light" style="width: 80px; height: 80px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
                         <i class="fas fa-clock"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>Pending Orders</h3>
-                        <div class="stat-number">3</div>
+                        <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">Pending Orders</h3>
+                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;">3</div>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon confirmed">
+                <div class="stat-card-light" style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease;">
+                    <div class="stat-icon-light" style="width: 80px; height: 80px; border-radius: 50%; background: var(--secondary); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
                         <i class="fas fa-check-circle"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>Confirmed Today</h3>
-                        <div class="stat-number">5</div>
+                        <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">Confirmed Today</h3>
+                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;">5</div>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon delivered">
+                <div class="stat-card-light" style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease;">
+                    <div class="stat-icon-light" style="width: 80px; height: 80px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
                         <i class="fas fa-truck"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>Delivered Today</h3>
-                        <div class="stat-number">8</div>
+                        <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">Delivered Today</h3>
+                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;">8</div>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon budget">
+                <div class="stat-card-light" style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease;">
+                    <div class="stat-icon-light" style="width: 80px; height: 80px; border-radius: 50%; background: #8b5cf6; color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>Active Suppliers</h3>
-                        <div class="stat-number">24</div>
+                        <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">Active Suppliers</h3>
+                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;">24</div>
                     </div>
                 </div>
             </div>
 
             <!-- Main Dashboard Content -->
-            <div class="dashboard-main">
+            <div class="dashboard-main-light" style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
                 <!-- Left Column - Main Content -->
                 <div class="dashboard-column">
                     <!-- Quick Order Card -->
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3><i class="fas fa-bolt"></i> Quick Emergency Order</h3>
+                    <div class="dashboard-card-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 2rem;">
+                        <div class="card-header-light" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #E2E8F0;">
+                            <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
+                                <i class="fas fa-bolt" style="color: var(--primary);"></i> Quick Emergency Order
+                            </h3>
                         </div>
                         <div class="search-order">
-                            <div class="search-box">
-                                <input type="text" placeholder="What do you need urgently? (e.g., toilet paper, cleaning supplies, linens...)">
+                            <div class="search-box" style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                                <input type="text" placeholder="What do you need urgently? (e.g., toilet paper, cleaning supplies, linens...)" style="flex: 1; padding: 1rem; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1rem;">
                                 <button class="btn btn-primary">
                                     <i class="fas fa-search"></i> Search
                                 </button>
                             </div>
                             
-                            <div class="quick-categories">
-                                <h4>Common Emergency Items</h4>
-                                <div class="category-tags">
-                                    <span class="category-tag">Toiletries</span>
-                                    <span class="category-tag">Cleaning Supplies</span>
-                                    <span class="category-tag">Linens</span>
-                                    <span class="category-tag">Food Items</span>
-                                    <span class="category-tag">Beverages</span>
-                                    <span class="category-tag">Kitchen Supplies</span>
-                                </div>
-                            </div>
-
-                            <div class="quick-order-form">
-                                <h4><i class="fas fa-fire"></i> Emergency Priority</h4>
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
-                                    <div class="urgency-option">
-                                        <input type="radio" id="normal" name="urgency" checked>
-                                        <label for="normal" class="urgency normal">
-                                            <i class="fas fa-walking"></i>
-                                            <span>Normal (2-4 hours)</span>
-                                        </label>
-                                    </div>
-                                    <div class="urgency-option">
-                                        <input type="radio" id="urgent" name="urgency">
-                                        <label for="urgent" class="urgency urgent">
-                                            <i class="fas fa-running"></i>
-                                            <span>Urgent (1-2 hours)</span>
-                                        </label>
-                                    </div>
+                            <div class="quick-categories" style="margin-bottom: 1.5rem;">
+                                <h4 style="color: #1E293B; margin-bottom: 1rem;">Common Emergency Items</h4>
+                                <div class="category-tags-light" style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                                    <span class="category-tag-light" style="background: #F1F5F9; color: #64748B; padding: 0.75rem 1.25rem; border-radius: 25px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; border: 1px solid #E2E8F0;">Toiletries</span>
+                                    <span class="category-tag-light" style="background: #F1F5F9; color: #64748B; padding: 0.75rem 1.25rem; border-radius: 25px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; border: 1px solid #E2E8F0;">Cleaning Supplies</span>
+                                    <span class="category-tag-light" style="background: #F1F5F9; color: #64748B; padding: 0.75rem 1.25rem; border-radius: 25px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; border: 1px solid #E2E8F0;">Linens</span>
+                                    <span class="category-tag-light" style="background: #F1F5F9; color: #64748B; padding: 0.75rem 1.25rem; border-radius: 25px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; border: 1px solid #E2E8F0;">Food Items</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Active Orders Card -->
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3><i class="fas fa-list-alt"></i> Active Orders</h3>
+                    <div class="dashboard-card-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 2rem;">
+                        <div class="card-header-light" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #E2E8F0;">
+                            <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
+                                <i class="fas fa-list-alt" style="color: var(--primary);"></i> Active Orders
+                            </h3>
                             <button class="btn-icon">
                                 <i class="fas fa-sync-alt"></i>
                             </button>
                         </div>
                         <div class="orders-list">
-                            <div class="order-item">
+                            <div class="order-item-light" style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: #F8FAFC; border-radius: 10px; margin-bottom: 1rem; border: 1px solid #E2E8F0;">
                                 <div class="order-info">
-                                    <strong>Toilet Paper & Tissue</strong>
-                                    <span>Supplier: Nakuru Supplies Ltd</span>
-                                    <small>Order #SW-7842 • Placed 30min ago</small>
+                                    <strong style="color: #1E293B; display: block; margin-bottom: 0.5rem;">Toilet Paper & Tissue</strong>
+                                    <span style="color: #64748B; display: block; margin-bottom: 0.25rem;">Supplier: Nakuru Supplies Ltd</span>
+                                    <small style="color: #94A3B8;">Order #SW-7842 • Placed 30min ago</small>
                                 </div>
-                                <div class="order-details">
-                                    <span class="order-status pending">Pending</span>
-                                    <div class="item-price">KSh 24,500</div>
+                                <div class="order-details" style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;">
+                                    <span class="order-status pending" style="background: var(--accent); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">Pending</span>
+                                    <div class="item-price" style="font-weight: 700; color: #1E293B;">KSh 24,500</div>
                                 </div>
                             </div>
-                            <div class="order-item">
+                            <div class="order-item-light" style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: #F8FAFC; border-radius: 10px; margin-bottom: 1rem; border: 1px solid #E2E8F0;">
                                 <div class="order-info">
-                                    <strong>Cleaning Chemicals</strong>
-                                    <span>Supplier: Mombasa Clean Co</span>
-                                    <small>Order #SW-7841 • Placed 1hr ago</small>
+                                    <strong style="color: #1E293B; display: block; margin-bottom: 0.5rem;">Cleaning Chemicals</strong>
+                                    <span style="color: #64748B; display: block; margin-bottom: 0.25rem;">Supplier: Mombasa Clean Co</span>
+                                    <small style="color: #94A3B8;">Order #SW-7841 • Placed 1hr ago</small>
                                 </div>
-                                <div class="order-details">
-                                    <span class="order-status confirmed">Confirmed</span>
-                                    <div class="item-price">KSh 18,300</div>
+                                <div class="order-details" style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;">
+                                    <span class="order-status confirmed" style="background: var(--secondary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">Confirmed</span>
+                                    <div class="item-price" style="font-weight: 700; color: #1E293B;">KSh 18,300</div>
                                 </div>
-                            </div>
-                            <div class="order-item">
-                                <div class="order-info">
-                                    <strong>Bed Linens & Towels</strong>
-                                    <span>Supplier: Coastal Textiles</span>
-                                    <small>Order #SW-7840 • Placed 2hrs ago</small>
-                                </div>
-                                <div class="order-details">
-                                    <span class="order-status delivered">Delivered</span>
-                                    <div class="item-price">KSh 42,800</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Recommended Suppliers Card -->
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3><i class="fas fa-star"></i> Recommended Suppliers</h3>
-                            <button class="btn-icon">
-                                <i class="fas fa-ellipsis-h"></i>
-                            </button>
-                        </div>
-                        <div class="suppliers-list">
-                            <div class="supplier-card">
-                                <div class="supplier-info">
-                                    <h4>Nakuru Supplies Ltd</h4>
-                                    <div class="supplier-rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                        <span>4.5 (128 reviews)</span>
-                                    </div>
-                                    <div class="supplier-specialty">Toiletries & Guest Amenities</div>
-                                    <div class="supplier-delivery">
-                                        <i class="fas fa-clock"></i> Avg. delivery: 45min
-                                    </div>
-                                </div>
-                                <button class="btn btn-outline btn-small">Contact</button>
-                            </div>
-                            <div class="supplier-card">
-                                <div class="supplier-info">
-                                    <h4>Mombasa Clean Co</h4>
-                                    <div class="supplier-rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <span>5.0 (94 reviews)</span>
-                                    </div>
-                                    <div class="supplier-specialty">Cleaning Supplies & Chemicals</div>
-                                    <div class="supplier-delivery">
-                                        <i class="fas fa-clock"></i> Avg. delivery: 35min
-                                    </div>
-                                </div>
-                                <button class="btn btn-outline btn-small">Contact</button>
                             </div>
                         </div>
                     </div>
@@ -244,84 +165,59 @@
                 <!-- Right Column - Sidebar -->
                 <div class="dashboard-column">
                     <!-- Emergency Panel -->
-                    <div class="dashboard-card emergency-panel">
-                        <div class="card-header">
-                            <h3><i class="fas fa-bell"></i> Emergency Alert</h3>
-                        </div>
-                        <p>Need immediate assistance? Our 24/7 emergency line connects you directly with available suppliers.</p>
-                        <a href="https://wa.me/254794465650?text=EMERGENCY%20-%20Hotel%20Supply%20Urgently%20Needed" class="btn-emergency">
+                    <div class="emergency-panel-light" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; padding: 2.5rem; border-radius: 15px; margin-bottom: 2rem; text-align: center;">
+                        <h3 style="color: white; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                            <i class="fas fa-bell"></i> Emergency Alert
+                        </h3>
+                        <p style="margin-bottom: 1.5rem; opacity: 0.9;">Need immediate assistance? Our 24/7 emergency line connects you directly with available suppliers.</p>
+                        <a href="https://wa.me/254794465650?text=EMERGENCY%20-%20Hotel%20Supply%20Urgently%20Needed" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 0.5rem;">
                             <i class="fab fa-whatsapp"></i> WhatsApp Emergency Line
                         </a>
-                        <div style="margin-top: 1rem; font-size: 0.9rem; color: rgba(255,255,255,0.8);">
+                        <div style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
                             <i class="fas fa-info-circle"></i> Average response time: 8 minutes
                         </div>
                     </div>
 
-                    <!-- Order Tracking -->
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3><i class="fas fa-shipping-fast"></i> Order Tracking</h3>
-                        </div>
-                        <div class="tracking-list">
-                            <div class="tracking-item">
-                                <div class="tracking-info">
-                                    <strong>Order #SW-7841</strong>
-                                    <span>Cleaning Chemicals - Mombasa Clean Co</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 75%"></div>
-                                </div>
-                                <span class="status-text">On the way - ETA 15min</span>
-                            </div>
-                            <div class="tracking-item">
-                                <div class="tracking-info">
-                                    <strong>Order #SW-7842</strong>
-                                    <span>Toilet Paper - Nakuru Supplies</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 25%"></div>
-                                </div>
-                                <span class="status-text">Order confirmed - Preparing</span>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Quick Stats -->
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3><i class="fas fa-chart-line"></i> This Month</h3>
+                    <div class="dashboard-card-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 2rem;">
+                        <div class="card-header-light" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #E2E8F0;">
+                            <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
+                                <i class="fas fa-chart-line" style="color: var(--primary);"></i> This Month
+                            </h3>
                         </div>
-                        <div style="padding: 1rem 0;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
-                                <span>Orders Placed:</span>
-                                <strong>28</strong>
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #F1F5F9;">
+                                <span style="color: #64748B;">Orders Placed:</span>
+                                <strong style="color: #1E293B;">28</strong>
                             </div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
-                                <span>Total Spend:</span>
-                                <strong>KSh 384,200</strong>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #F1F5F9;">
+                                <span style="color: #64748B;">Total Spend:</span>
+                                <strong style="color: #1E293B;">KSh 384,200</strong>
                             </div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
-                                <span>Avg Response Time:</span>
-                                <strong>18min</strong>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #F1F5F9;">
+                                <span style="color: #64748B;">Avg Response Time:</span>
+                                <strong style="color: #1E293B;">18min</strong>
                             </div>
-                            <div style="display: flex; justify-content: space-between;">
-                                <span>Suppliers Used:</span>
-                                <strong>12</strong>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0;">
+                                <span style="color: #64748B;">Suppliers Used:</span>
+                                <strong style="color: #1E293B;">12</strong>
                             </div>
                         </div>
                     </div>
 
                     <!-- Support Card -->
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3><i class="fas fa-headset"></i> Need Help?</h3>
+                    <div class="dashboard-card-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        <div class="card-header-light" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #E2E8F0;">
+                            <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
+                                <i class="fas fa-headset" style="color: var(--primary);"></i> Need Help?
+                            </h3>
                         </div>
-                        <div style="padding: 1.5rem; text-align: center;">
-                            <div style="font-size: 2rem; color: var(--premium-gold); margin-bottom: 1rem;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;">
                                 <i class="fas fa-comments"></i>
                             </div>
-                            <p style="margin-bottom: 1.5rem; color: #94a3b8;">Our support team is here to help with any issues or questions.</p>
-                            <button class="btn btn-outline btn-full">
+                            <p style="margin-bottom: 1.5rem; color: #64748B;">Our support team is here to help with any issues or questions.</p>
+                            <button class="btn btn-outline" style="width: 100%;">
                                 <i class="fas fa-envelope"></i> Contact Support
                             </button>
                         </div>
@@ -332,40 +228,40 @@
     </section>
 
     <script>
-        // Simple dashboard functionality
         function openQuickOrder() {
             alert('Quick order modal would open here!');
-            // In real implementation, this would open a modal for quick ordering
         }
 
         function openSupplierSearch() {
             alert('Supplier search would open here!');
-            // In real implementation, this would open supplier search
         }
 
-        // Tab functionality for navigation
+        // Add hover effects
         document.addEventListener('DOMContentLoaded', function() {
-            const navLinks = document.querySelectorAll('.nav-link');
-            
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Here you would load different dashboard sections
-                    const section = this.getAttribute('href').substring(1);
-                    console.log('Loading section:', section);
+            // Stat cards hover
+            const statCards = document.querySelectorAll('.stat-card-light');
+            statCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
                 });
             });
 
-            // Mobile menu toggle
-            const mobileMenu = document.getElementById('mobile-menu');
-            const navMenu = document.querySelector('.nav-menu');
-            
-            mobileMenu.addEventListener('click', function() {
-                navMenu.classList.toggle('active');
-                mobileMenu.classList.toggle('active');
+            // Category tags hover
+            const categoryTags = document.querySelectorAll('.category-tag-light');
+            categoryTags.forEach(tag => {
+                tag.addEventListener('mouseenter', function() {
+                    this.style.background = 'var(--primary)';
+                    this.style.color = 'white';
+                    this.style.borderColor = 'var(--primary)';
+                });
+                tag.addEventListener('mouseleave', function() {
+                    this.style.background = '#F1F5F9';
+                    this.style.color = '#64748B';
+                    this.style.borderColor = '#E2E8F0';
+                });
             });
         });
     </script>
