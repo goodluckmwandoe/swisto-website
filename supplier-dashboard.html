@@ -7,24 +7,23 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
-<body class="dashboard-page">
+<body>
     <!-- Supplier Dashboard Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
                 <img src="swisto-logo.png" alt="SWISTO Kenya">
-                <span style="margin-left: 10px; font-weight: 600; color: white;">Supplier Dashboard</span>
+                <span style="margin-left: 10px; font-weight: 600; color: #333;">Supplier Dashboard</span>
             </div>
             <div class="nav-menu">
                 <a href="#overview" class="nav-link active"><i class="fas fa-chart-pie"></i> Overview</a>
                 <a href="#orders" class="nav-link"><i class="fas fa-shopping-cart"></i> Orders</a>
                 <a href="#inventory" class="nav-link"><i class="fas fa-boxes"></i> Inventory</a>
                 <a href="#performance" class="nav-link"><i class="fas fa-trophy"></i> Performance</a>
-                <a href="#payments" class="nav-link"><i class="fas fa-money-bill-wave"></i> Payments</a>
             </div>
             <div class="nav-user">
                 <span class="user-name">Nakuru Supplies Ltd</span>
-                <div class="user-avatar" style="background: linear-gradient(135deg, #10b981, #059669);">
+                <div class="user-avatar" style="background: var(--secondary); color: white;">
                     <i class="fas fa-building"></i>
                 </div>
             </div>
@@ -36,132 +35,87 @@
         </div>
     </nav>
 
-    <!-- SUPPLIER DASHBOARD SECTION -->
-    <section class="dashboard-section">
+    <!-- SUPPLIER DASHBOARD CONTENT -->
+    <section class="dashboard-content" style="padding: 120px 0 80px; margin-top: 80px;">
         <div class="container">
             <!-- Dashboard Header -->
-            <div class="dashboard-header">
+            <div class="dashboard-header-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center;">
                 <div>
-                    <h1>Welcome back, Nakuru Supplies Ltd</h1>
-                    <p>Premium Supplier • 4.8★ Rating • You have 5 new orders today</p>
+                    <h1 style="color: #1E293B; margin-bottom: 0.5rem; font-size: 2.5rem;">Welcome back, Nakuru Supplies Ltd</h1>
+                    <p style="color: #64748B; font-size: 1.2rem; margin: 0;">Premium Supplier • 4.8★ Rating • You have 5 new orders today</p>
                 </div>
-                <div class="quick-actions">
-                    <div class="quick-action-btn" onclick="updateInventory()">
-                        <i class="fas fa-edit"></i>
-                        <span>Update Stock</span>
-                    </div>
-                    <div class="quick-action-btn" onclick="viewAnalytics()">
-                        <i class="fas fa-chart-bar"></i>
-                        <span>Analytics</span>
-                    </div>
+                <div class="quick-actions-light" style="display: flex; gap: 1rem;">
+                    <button class="btn btn-primary" onclick="updateInventory()">
+                        <i class="fas fa-edit"></i> Update Stock
+                    </button>
+                    <button class="btn btn-outline" onclick="viewAnalytics()">
+                        <i class="fas fa-chart-bar"></i> Analytics
+                    </button>
                 </div>
             </div>
 
             <!-- Supplier Stats Grid -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon pending">
+            <div class="stats-grid-light" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                <div class="stat-card-light" style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease;">
+                    <div class="stat-icon-light" style="width: 80px; height: 80px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
                         <i class="fas fa-bell"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>New Orders</h3>
-                        <div class="stat-number">5</div>
+                        <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">New Orders</h3>
+                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;">5</div>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon confirmed">
+                <div class="stat-card-light" style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease;">
+                    <div class="stat-icon-light" style="width: 80px; height: 80px; border-radius: 50%; background: var(--secondary); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
                         <i class="fas fa-check-double"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>To Fulfill</h3>
-                        <div class="stat-number">12</div>
+                        <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">To Fulfill</h3>
+                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;">12</div>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon delivered">
+                <div class="stat-card-light" style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease;">
+                    <div class="stat-icon-light" style="width: 80px; height: 80px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
                         <i class="fas fa-truck-loading"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>Delivered Today</h3>
-                        <div class="stat-number">8</div>
+                        <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">Delivered Today</h3>
+                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;">8</div>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon budget">
+                <div class="stat-card-light" style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease;">
+                    <div class="stat-icon-light" style="width: 80px; height: 80px; border-radius: 50%; background: #8b5cf6; color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
                         <i class="fas fa-money-bill-wave"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>Today's Revenue</h3>
-                        <div class="stat-number">KSh 184K</div>
+                        <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">Today's Revenue</h3>
+                        <div class="stat-number" style="font-size: 2.2rem; font-weight: bold; color: #1E293B;">KSh 184K</div>
                     </div>
                 </div>
             </div>
 
             <!-- Main Dashboard Content -->
-            <div class="dashboard-main">
+            <div class="dashboard-main-light" style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
                 <!-- Left Column - Main Content -->
                 <div class="dashboard-column">
-                    <!-- Quick Actions Card -->
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
-                        </div>
-                        <div class="quick-actions-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
-                            <div class="quick-action-large" onclick="updateInventory()">
-                                <div class="action-icon">
-                                    <i class="fas fa-boxes"></i>
-                                </div>
-                                <div class="action-text">
-                                    <strong>Update Inventory</strong>
-                                    <span>Add new stock levels</span>
-                                </div>
-                            </div>
-                            <div class="quick-action-large" onclick="processOrders()">
-                                <div class="action-icon">
-                                    <i class="fas fa-clipboard-list"></i>
-                                </div>
-                                <div class="action-text">
-                                    <strong>Process Orders</strong>
-                                    <span>5 pending orders</span>
-                                </div>
-                            </div>
-                            <div class="quick-action-large" onclick="viewPerformance()">
-                                <div class="action-icon">
-                                    <i class="fas fa-chart-line"></i>
-                                </div>
-                                <div class="action-text">
-                                    <strong>View Analytics</strong>
-                                    <span>Business insights</span>
-                                </div>
-                            </div>
-                            <div class="quick-action-large" onclick="manageProfile()">
-                                <div class="action-icon">
-                                    <i class="fas fa-store"></i>
-                                </div>
-                                <div class="action-text">
-                                    <strong>Business Profile</strong>
-                                    <span>Update details</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- New Orders Card -->
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3><i class="fas fa-inbox"></i> New Order Requests</h3>
-                            <span class="badge" style="background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem;">5 New</span>
+                    <div class="dashboard-card-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 2rem;">
+                        <div class="card-header-light" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #E2E8F0;">
+                            <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
+                                <i class="fas fa-inbox" style="color: var(--primary);"></i> New Order Requests
+                            </h3>
+                            <span class="badge" style="background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">5 New</span>
                         </div>
                         <div class="orders-list">
-                            <div class="order-item">
+                            <div class="order-item-light" style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: #F8FAFC; border-radius: 10px; margin-bottom: 1rem; border: 1px solid #E2E8F0;">
                                 <div class="order-info">
-                                    <strong>Sarova Whitesands Beach Resort</strong>
-                                    <span>Toilet Paper (50 cartons) & Tissue (30 cartons)</span>
-                                    <small>Order #SW-7845 • Requested 15min ago • <span class="urgency urgent">URGENT</span></small>
+                                    <strong style="color: #1E293B; display: block; margin-bottom: 0.5rem;">Sarova Whitesands Beach Resort</strong>
+                                    <span style="color: #64748B; display: block; margin-bottom: 0.25rem;">Toilet Paper (50 cartons) & Tissue (30 cartons)</span>
+                                    <small style="color: #94A3B8;">Order #SW-7845 • Requested 15min ago • <span style="color: var(--accent); font-weight: 600;">URGENT</span></small>
                                 </div>
-                                <div class="order-details">
-                                    <span class="order-price">KSh 24,500</span>
-                                    <div class="order-actions">
+                                <div class="order-details" style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;">
+                                    <span class="order-price" style="font-weight: 700; color: #1E293B;">KSh 24,500</span>
+                                    <div class="order-actions" style="display: flex; gap: 0.5rem;">
                                         <button class="btn btn-success btn-small" onclick="acceptOrder(7845)">
                                             <i class="fas fa-check"></i> Accept
                                         </button>
@@ -171,15 +125,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="order-item">
+                            <div class="order-item-light" style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: #F8FAFC; border-radius: 10px; margin-bottom: 1rem; border: 1px solid #E2E8F0;">
                                 <div class="order-info">
-                                    <strong>Diani Sea Resort</strong>
-                                    <span>Guest Toiletries Bundle (200 sets)</span>
-                                    <small>Order #SW-7844 • Requested 45min ago • <span class="urgency normal">Normal</span></small>
+                                    <strong style="color: #1E293B; display: block; margin-bottom: 0.5rem;">Diani Sea Resort</strong>
+                                    <span style="color: #64748B; display: block; margin-bottom: 0.25rem;">Guest Toiletries Bundle (200 sets)</span>
+                                    <small style="color: #94A3B8;">Order #SW-7844 • Requested 45min ago • <span style="color: var(--secondary); font-weight: 600;">Normal</span></small>
                                 </div>
-                                <div class="order-details">
-                                    <span class="order-price">KSh 38,200</span>
-                                    <div class="order-actions">
+                                <div class="order-details" style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;">
+                                    <span class="order-price" style="font-weight: 700; color: #1E293B;">KSh 38,200</span>
+                                    <div class="order-actions" style="display: flex; gap: 0.5rem;">
                                         <button class="btn btn-success btn-small" onclick="acceptOrder(7844)">
                                             <i class="fas fa-check"></i> Accept
                                         </button>
@@ -189,74 +143,38 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="order-item">
-                                <div class="order-info">
-                                    <strong>Baobab Beach Resort</strong>
-                                    <span>Cleaning Chemicals Variety Pack</span>
-                                    <small>Order #SW-7843 • Requested 1hr ago • <span class="urgency emergency">EMERGENCY</span></small>
-                                </div>
-                                <div class="order-details">
-                                    <span class="order-price">KSh 15,800</span>
-                                    <div class="order-actions">
-                                        <button class="btn btn-success btn-small" onclick="acceptOrder(7843)">
-                                            <i class="fas fa-check"></i> Accept
-                                        </button>
-                                        <button class="btn btn-outline btn-small" onclick="declineOrder(7843)">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
                     <!-- Inventory Management -->
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3><i class="fas fa-box-open"></i> Inventory Status</h3>
+                    <div class="dashboard-card-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        <div class="card-header-light" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #E2E8F0;">
+                            <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
+                                <i class="fas fa-box-open" style="color: var(--primary);"></i> Inventory Status
+                            </h3>
                             <button class="btn btn-outline btn-small" onclick="updateInventory()">
                                 <i class="fas fa-edit"></i> Update All
                             </button>
                         </div>
-                        <div class="inventory-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
-                            <div class="inventory-item">
-                                <div class="inventory-header">
-                                    <span>Toilet Paper</span>
-                                    <span class="stock-level high">In Stock</span>
+                        <div class="inventory-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                            <div class="inventory-item" style="background: #F8FAFC; padding: 1.5rem; border-radius: 10px; border: 1px solid #E2E8F0;">
+                                <div class="inventory-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <span style="color: #1E293B; font-weight: 600;">Toilet Paper</span>
+                                    <span class="stock-level high" style="background: var(--secondary); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">In Stock</span>
                                 </div>
                                 <div class="inventory-details">
-                                    <div class="stock-amount">150 cartons</div>
-                                    <div class="stock-warning">Reorder at 30 cartons</div>
+                                    <div class="stock-amount" style="font-size: 1.5rem; font-weight: 700; color: #1E293B; margin-bottom: 0.5rem;">150 cartons</div>
+                                    <div class="stock-warning" style="font-size: 0.8rem; color: #64748B;">Reorder at 30 cartons</div>
                                 </div>
                             </div>
-                            <div class="inventory-item">
-                                <div class="inventory-header">
-                                    <span>Bath Tissue</span>
-                                    <span class="stock-level medium">Low Stock</span>
+                            <div class="inventory-item" style="background: #F8FAFC; padding: 1.5rem; border-radius: 10px; border: 1px solid #E2E8F0;">
+                                <div class="inventory-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <span style="color: #1E293B; font-weight: 600;">Bath Tissue</span>
+                                    <span class="stock-level medium" style="background: var(--accent); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">Low Stock</span>
                                 </div>
                                 <div class="inventory-details">
-                                    <div class="stock-amount">45 cartons</div>
-                                    <div class="stock-warning">Reorder now</div>
-                                </div>
-                            </div>
-                            <div class="inventory-item">
-                                <div class="inventory-header">
-                                    <span>Guest Soap</span>
-                                    <span class="stock-level high">In Stock</span>
-                                </div>
-                                <div class="inventory-details">
-                                    <div class="stock-amount">320 boxes</div>
-                                    <div class="stock-warning">Reorder at 50 boxes</div>
-                                </div>
-                            </div>
-                            <div class="inventory-item">
-                                <div class="inventory-header">
-                                    <span>Shampoo</span>
-                                    <span class="stock-level low">Out of Stock</span>
-                                </div>
-                                <div class="inventory-details">
-                                    <div class="stock-amount">0 bottles</div>
-                                    <div class="stock-warning urgent">URGENT: Restock needed</div>
+                                    <div class="stock-amount" style="font-size: 1.5rem; font-weight: 700; color: #1E293B; margin-bottom: 0.5rem;">45 cartons</div>
+                                    <div class="stock-warning" style="font-size: 0.8rem; color: #64748B;">Reorder now</div>
                                 </div>
                             </div>
                         </div>
@@ -266,17 +184,19 @@
                 <!-- Right Column - Sidebar -->
                 <div class="dashboard-column">
                     <!-- Supplier Performance -->
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3><i class="fas fa-trophy"></i> Performance</h3>
+                    <div class="dashboard-card-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 2rem;">
+                        <div class="card-header-light" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #E2E8F0;">
+                            <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
+                                <i class="fas fa-trophy" style="color: var(--primary);"></i> Performance
+                            </h3>
                         </div>
-                        <div class="performance-stats">
-                            <div class="performance-item">
+                        <div class="performance-stats" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                            <div class="performance-item" style="display: flex; justify-content: space-between; align-items: center;">
                                 <div class="performance-metric">
-                                    <div class="metric-value">4.8</div>
-                                    <div class="metric-label">Average Rating</div>
+                                    <div class="metric-value" style="font-size: 1.8rem; font-weight: 700; color: #1E293B;">4.8</div>
+                                    <div class="metric-label" style="font-size: 0.8rem; color: #64748B;">Average Rating</div>
                                 </div>
-                                <div class="performance-stars">
+                                <div class="performance-stars" style="color: var(--accent); font-size: 1.2rem;">
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
@@ -284,110 +204,36 @@
                                     <i class="fas fa-star-half-alt"></i>
                                 </div>
                             </div>
-                            <div class="performance-item">
+                            <div class="performance-item" style="display: flex; justify-content: space-between; align-items: center;">
                                 <div class="performance-metric">
-                                    <div class="metric-value">98%</div>
-                                    <div class="metric-label">Order Completion</div>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 98%"></div>
-                                </div>
-                            </div>
-                            <div class="performance-item">
-                                <div class="performance-metric">
-                                    <div class="metric-value">28min</div>
-                                    <div class="metric-label">Avg Response Time</div>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 85%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Active Deliveries -->
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3><i class="fas fa-shipping-fast"></i> Active Deliveries</h3>
-                        </div>
-                        <div class="deliveries-list">
-                            <div class="delivery-item">
-                                <div class="delivery-info">
-                                    <strong>Order #SW-7842</strong>
-                                    <span>Sarova Whitesands • Toilet Paper</span>
-                                </div>
-                                <div class="delivery-status">
-                                    <span class="status-badge on-the-way">On the way</span>
-                                    <span class="delivery-time">ETA: 25min</span>
-                                </div>
-                            </div>
-                            <div class="delivery-item">
-                                <div class="delivery-info">
-                                    <strong>Order #SW-7841</strong>
-                                    <span>Diani Sea Resort • Guest Toiletries</span>
-                                </div>
-                                <div class="delivery-status">
-                                    <span class="status-badge delivered">Delivered</span>
-                                    <span class="delivery-time">12:45 PM</span>
-                                </div>
-                            </div>
-                            <div class="delivery-item">
-                                <div class="delivery-info">
-                                    <strong>Order #SW-7840</strong>
-                                    <span>Baobab Beach • Cleaning Supplies</span>
-                                </div>
-                                <div class="delivery-status">
-                                    <span class="status-badge preparing">Preparing</span>
-                                    <span class="delivery-time">ETA: 45min</span>
+                                    <div class="metric-value" style="font-size: 1.8rem; font-weight: 700; color: #1E293B;">98%</div>
+                                    <div class="metric-label" style="font-size: 0.8rem; color: #64748B;">Order Completion</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Revenue Overview -->
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3><i class="fas fa-money-bill-wave"></i> Revenue This Month</h3>
+                    <div class="dashboard-card-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 2rem;">
+                        <div class="card-header-light" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #E2E8F0;">
+                            <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
+                                <i class="fas fa-money-bill-wave" style="color: var(--primary);"></i> Revenue This Month
+                            </h3>
                         </div>
                         <div class="revenue-overview">
-                            <div class="revenue-total">
-                                <div class="revenue-amount">KSh 1,248,500</div>
-                                <div class="revenue-label">Total Revenue</div>
+                            <div class="revenue-total" style="text-align: center; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #E2E8F0;">
+                                <div class="revenue-amount" style="font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem;">KSh 1,248,500</div>
+                                <div class="revenue-label" style="color: #64748B; font-size: 0.9rem;">Total Revenue</div>
                             </div>
-                            <div class="revenue-breakdown">
-                                <div class="revenue-item">
-                                    <span>Completed Orders:</span>
-                                    <strong>42</strong>
+                            <div class="revenue-breakdown" style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div class="revenue-item" style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #F1F5F9;">
+                                    <span style="color: #64748B;">Completed Orders:</span>
+                                    <strong style="color: #1E293B; font-weight: 600;">42</strong>
                                 </div>
-                                <div class="revenue-item">
-                                    <span>Average Order Value:</span>
-                                    <strong>KSh 29,726</strong>
+                                <div class="revenue-item" style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0;">
+                                    <span style="color: #64748B;">Pending Payments:</span>
+                                    <strong style="color: #1E293B; font-weight: 600;">KSh 184,200</strong>
                                 </div>
-                                <div class="revenue-item">
-                                    <span>Pending Payments:</span>
-                                    <strong>KSh 184,200</strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Supplier Support -->
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3><i class="fas fa-headset"></i> SWISTO Support</h3>
-                        </div>
-                        <div style="padding: 1.5rem; text-align: center;">
-                            <div style="font-size: 2rem; color: var(--premium-gold); margin-bottom: 1rem;">
-                                <i class="fas fa-hands-helping"></i>
-                            </div>
-                            <p style="margin-bottom: 1rem; color: #94a3b8;">Premium supplier support available 6AM-10PM</p>
-                            <div class="support-contacts">
-                                <button class="btn btn-outline btn-full" style="margin-bottom: 0.5rem;">
-                                    <i class="fas fa-phone"></i> Call Support
-                                </button>
-                                <button class="btn btn-primary btn-full">
-                                    <i class="fas fa-envelope"></i> Email Support
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -397,65 +243,48 @@
     </section>
 
     <script>
-        // Supplier Dashboard Functionality
         function updateInventory() {
             alert('Inventory update modal would open here!');
-            // In real implementation, this would open inventory management
-        }
-
-        function processOrders() {
-            alert('Order processing interface would open!');
-            // In real implementation, this would show order management
         }
 
         function viewAnalytics() {
-            alert('Detailed analytics dashboard would open!');
-        }
-
-        function viewPerformance() {
-            alert('Performance analytics would open!');
-        }
-
-        function manageProfile() {
-            alert('Business profile management would open!');
+            alert('Analytics dashboard would open!');
         }
 
         function acceptOrder(orderId) {
             if(confirm(`Accept order #SW-${orderId}? This will confirm you can fulfill this order.`)) {
-                // In real implementation, this would make API call
                 alert(`Order #SW-${orderId} accepted! Update delivery timeline.`);
             }
         }
 
         function declineOrder(orderId) {
             if(confirm(`Decline order #SW-${orderId}? Please provide a reason.`)) {
-                // In real implementation, this would make API call with reason
                 alert(`Order #SW-${orderId} declined.`);
             }
         }
 
-        // Dashboard navigation
+        // Add hover effects
         document.addEventListener('DOMContentLoaded', function() {
-            const navLinks = document.querySelectorAll('.nav-link');
-            
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    const section = this.getAttribute('href').substring(1);
-                    console.log('Loading supplier section:', section);
+            // Stat cards hover
+            const statCards = document.querySelectorAll('.stat-card-light');
+            statCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
                 });
             });
 
-            // Mobile menu toggle
-            const mobileMenu = document.getElementById('mobile-menu');
-            const navMenu = document.querySelector('.nav-menu');
-            
-            mobileMenu.addEventListener('click', function() {
-                navMenu.classList.toggle('active');
-                mobileMenu.classList.toggle('active');
+            // Inventory items hover
+            const inventoryItems = document.querySelectorAll('.inventory-item');
+            inventoryItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
             });
         });
     </script>
