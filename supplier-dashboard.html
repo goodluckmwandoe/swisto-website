@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Dashboard - SWISTO</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="swisto-logo.png" alt="SWISTO Kenya">
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="#" class="nav-link" onclick="logout()">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Supplier Dashboard -->
+    <section class="dashboard-section">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>Supplier Dashboard</h1>
+                <p>Welcome back! Manage your products and orders.</p>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <i class="fas fa-boxes"></i>
+                    <h3>Product Management</h3>
+                    <p>Manage your product catalog and stock levels</p>
+                    <a href="products.html" class="btn btn-outline">Manage Products</a>
+                </div>
+
+                <div class="dashboard-card">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3>Orders</h3>
+                    <p>View and process customer orders</p>
+                    <a href="supplier-orders.html" class="btn btn-outline">View Orders</a>
+                </div>
+
+                <div class="dashboard-card">
+                    <i class="fas fa-bell"></i>
+                    <h3>Emergency Requests</h3>
+                    <p>Respond to urgent hotel needs</p>
+                    <a href="supplier-requests.html" class="btn btn-outline">View Requests</a>
+                </div>
+
+                <div class="dashboard-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Analytics</h3>
+                    <p>View your business performance</p>
+                    <a href="analytics.html" class="btn btn-outline">View Analytics</a>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h4>Pending Orders</h4>
+                    <div class="stat-number">5</div>
+                </div>
+                <div class="stat-card">
+                    <h4>Products Listed</h4>
+                    <div class="stat-number">23</div>
+                </div>
+                <div class="stat-card">
+                    <h4>This Month's Revenue</h4>
+                    <div class="stat-number">KSh 45,200</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        function logout() {
+            if(confirm('Are you sure you want to logout?')) {
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>
