@@ -19,6 +19,7 @@
                 <a href="#overview" class="nav-link active"><i class="fas fa-chart-pie"></i> Overview</a>
                 <a href="#orders" class="nav-link"><i class="fas fa-shopping-cart"></i> Orders</a>
                 <a href="#inventory" class="nav-link"><i class="fas fa-boxes"></i> Inventory</a>
+                <a href="#invoices" class="nav-link"><i class="fas fa-file-invoice"></i> Invoices</a>
                 <a href="#performance" class="nav-link"><i class="fas fa-trophy"></i> Performance</a>
             </div>
             <div class="nav-user">
@@ -42,14 +43,14 @@
             <div class="dashboard-header-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center;">
                 <div>
                     <h1 style="color: #1E293B; margin-bottom: 0.5rem; font-size: 2.5rem;">Welcome back, Nakuru Supplies Ltd</h1>
-                    <p style="color: #64748B; font-size: 1.2rem; margin: 0;">Premium Supplier • 4.8★ Rating • You have 5 new orders today</p>
+                    <p style="color: #64748B; font-size: 1.2rem; margin: 0;">Premium Supplier • 4.8★ Rating • You have 3 pending invoices</p>
                 </div>
                 <div class="quick-actions-light" style="display: flex; gap: 1rem;">
-                    <button class="btn btn-primary" onclick="updateInventory()">
-                        <i class="fas fa-edit"></i> Update Stock
+                    <button class="btn btn-primary" onclick="createNewInvoice()">
+                        <i class="fas fa-plus-circle"></i> New Invoice
                     </button>
-                    <button class="btn btn-outline" onclick="viewAnalytics()">
-                        <i class="fas fa-chart-bar"></i> Analytics
+                    <button class="btn btn-outline" onclick="updateInventory()">
+                        <i class="fas fa-edit"></i> Update Stock
                     </button>
                 </div>
             </div>
@@ -58,38 +59,38 @@
             <div class="stats-grid-light" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
                 <div class="stat-card-light" style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease;">
                     <div class="stat-icon-light" style="width: 80px; height: 80px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
-                        <i class="fas fa-bell"></i>
+                        <i class="fas fa-file-invoice"></i>
                     </div>
                     <div class="stat-info">
-                        <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">New Orders</h3>
-                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;">5</div>
+                        <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">Pending Invoices</h3>
+                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;">3</div>
                     </div>
                 </div>
                 <div class="stat-card-light" style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease;">
                     <div class="stat-icon-light" style="width: 80px; height: 80px; border-radius: 50%; background: var(--secondary); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
-                        <i class="fas fa-check-double"></i>
+                        <i class="fas fa-money-bill-wave"></i>
                     </div>
                     <div class="stat-info">
-                        <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">To Fulfill</h3>
-                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;">12</div>
+                        <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">Amount Due</h3>
+                        <div class="stat-number" style="font-size: 2.2rem; font-weight: bold; color: #1E293B;">KSh 184K</div>
                     </div>
                 </div>
                 <div class="stat-card-light" style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease;">
                     <div class="stat-icon-light" style="width: 80px; height: 80px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
-                        <i class="fas fa-truck-loading"></i>
+                        <i class="fas fa-check-circle"></i>
                     </div>
                     <div class="stat-info">
-                        <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">Delivered Today</h3>
-                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;">8</div>
+                        <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">Paid This Month</h3>
+                        <div class="stat-number" style="font-size: 2.2rem; font-weight: bold; color: #1E293B;">KSh 892K</div>
                     </div>
                 </div>
                 <div class="stat-card-light" style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease;">
                     <div class="stat-icon-light" style="width: 80px; height: 80px; border-radius: 50%; background: #8b5cf6; color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
-                        <i class="fas fa-money-bill-wave"></i>
+                        <i class="fas fa-clock"></i>
                     </div>
                     <div class="stat-info">
-                        <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">Today's Revenue</h3>
-                        <div class="stat-number" style="font-size: 2.2rem; font-weight: bold; color: #1E293B;">KSh 184K</div>
+                        <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">Overdue</h3>
+                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;">2</div>
                     </div>
                 </div>
             </div>
@@ -98,47 +99,88 @@
             <div class="dashboard-main-light" style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
                 <!-- Left Column - Main Content -->
                 <div class="dashboard-column">
-                    <!-- New Orders Card -->
+                    <!-- Invoice Management Card -->
                     <div class="dashboard-card-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 2rem;">
                         <div class="card-header-light" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #E2E8F0;">
                             <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
-                                <i class="fas fa-inbox" style="color: var(--primary);"></i> New Order Requests
+                                <i class="fas fa-file-invoice-dollar" style="color: var(--primary);"></i> Invoice Management
                             </h3>
-                            <span class="badge" style="background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">5 New</span>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="btn btn-outline btn-small" onclick="filterInvoices('all')">
+                                    All
+                                </button>
+                                <button class="btn btn-outline btn-small" onclick="filterInvoices('pending')">
+                                    Pending
+                                </button>
+                                <button class="btn btn-outline btn-small" onclick="filterInvoices('paid')">
+                                    Paid
+                                </button>
+                            </div>
                         </div>
-                        <div class="orders-list">
-                            <div class="order-item-light" style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: #F8FAFC; border-radius: 10px; margin-bottom: 1rem; border: 1px solid #E2E8F0;">
-                                <div class="order-info">
-                                    <strong style="color: #1E293B; display: block; margin-bottom: 0.5rem;">Sarova Whitesands Beach Resort</strong>
-                                    <span style="color: #64748B; display: block; margin-bottom: 0.25rem;">Toilet Paper (50 cartons) & Tissue (30 cartons)</span>
-                                    <small style="color: #94A3B8;">Order #SW-7845 • Requested 15min ago • <span style="color: var(--accent); font-weight: 600;">URGENT</span></small>
+                        
+                        <!-- Invoice List -->
+                        <div class="invoices-list">
+                            <div class="invoice-item" style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: #F8FAFC; border-radius: 10px; margin-bottom: 1rem; border: 1px solid #E2E8F0;">
+                                <div class="invoice-info">
+                                    <strong style="color: #1E293B; display: block; margin-bottom: 0.5rem;">Invoice #INV-2024-0012</strong>
+                                    <span style="color: #64748B; display: block; margin-bottom: 0.25rem;">Sarova Whitesands Beach Resort</span>
+                                    <small style="color: #94A3B8;">Due: Dec 15, 2024 • Order #SW-7842</small>
                                 </div>
-                                <div class="order-details" style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;">
-                                    <span class="order-price" style="font-weight: 700; color: #1E293B;">KSh 24,500</span>
-                                    <div class="order-actions" style="display: flex; gap: 0.5rem;">
-                                        <button class="btn btn-success btn-small" onclick="acceptOrder(7845)">
-                                            <i class="fas fa-check"></i> Accept
+                                <div class="invoice-details" style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;">
+                                    <span class="invoice-amount" style="font-weight: 700; color: #1E293B; font-size: 1.2rem;">KSh 24,500</span>
+                                    <span class="invoice-status pending" style="background: var(--accent); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">Pending</span>
+                                    <div class="invoice-actions" style="display: flex; gap: 0.5rem;">
+                                        <button class="btn btn-success btn-small" onclick="markAsPaid('INV-2024-0012')">
+                                            <i class="fas fa-check"></i> Mark Paid
                                         </button>
-                                        <button class="btn btn-outline btn-small" onclick="declineOrder(7845)">
-                                            <i class="fas fa-times"></i>
+                                        <button class="btn btn-primary btn-small" onclick="generateInvoice('INV-2024-0012')">
+                                            <i class="fas fa-download"></i> Download
+                                        </button>
+                                        <button class="btn btn-outline btn-small" onclick="sendReminder('INV-2024-0012')">
+                                            <i class="fas fa-paper-plane"></i> Remind
                                         </button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="order-item-light" style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: #F8FAFC; border-radius: 10px; margin-bottom: 1rem; border: 1px solid #E2E8F0;">
-                                <div class="order-info">
-                                    <strong style="color: #1E293B; display: block; margin-bottom: 0.5rem;">Diani Sea Resort</strong>
-                                    <span style="color: #64748B; display: block; margin-bottom: 0.25rem;">Guest Toiletries Bundle (200 sets)</span>
-                                    <small style="color: #94A3B8;">Order #SW-7844 • Requested 45min ago • <span style="color: var(--secondary); font-weight: 600;">Normal</span></small>
+
+                            <div class="invoice-item" style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: #F8FAFC; border-radius: 10px; margin-bottom: 1rem; border: 1px solid #E2E8F0;">
+                                <div class="invoice-info">
+                                    <strong style="color: #1E293B; display: block; margin-bottom: 0.5rem;">Invoice #INV-2024-0011</strong>
+                                    <span style="color: #64748B; display: block; margin-bottom: 0.25rem;">Diani Sea Resort</span>
+                                    <small style="color: #94A3B8;">Due: Dec 10, 2024 • Order #SW-7841</small>
                                 </div>
-                                <div class="order-details" style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;">
-                                    <span class="order-price" style="font-weight: 700; color: #1E293B;">KSh 38,200</span>
-                                    <div class="order-actions" style="display: flex; gap: 0.5rem;">
-                                        <button class="btn btn-success btn-small" onclick="acceptOrder(7844)">
-                                            <i class="fas fa-check"></i> Accept
+                                <div class="invoice-details" style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;">
+                                    <span class="invoice-amount" style="font-weight: 700; color: #1E293B; font-size: 1.2rem;">KSh 38,200</span>
+                                    <span class="invoice-status overdue" style="background: #ef4444; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">Overdue</span>
+                                    <div class="invoice-actions" style="display: flex; gap: 0.5rem;">
+                                        <button class="btn btn-success btn-small" onclick="markAsPaid('INV-2024-0011')">
+                                            <i class="fas fa-check"></i> Mark Paid
                                         </button>
-                                        <button class="btn btn-outline btn-small" onclick="declineOrder(7844)">
-                                            <i class="fas fa-times"></i>
+                                        <button class="btn btn-primary btn-small" onclick="generateInvoice('INV-2024-0011')">
+                                            <i class="fas fa-download"></i> Download
+                                        </button>
+                                        <button class="btn btn-outline btn-small" onclick="sendReminder('INV-2024-0011')">
+                                            <i class="fas fa-paper-plane"></i> Remind
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="invoice-item" style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: #F8FAFC; border-radius: 10px; margin-bottom: 1rem; border: 1px solid #E2E8F0;">
+                                <div class="invoice-info">
+                                    <strong style="color: #1E293B; display: block; margin-bottom: 0.5rem;">Invoice #INV-2024-0010</strong>
+                                    <span style="color: #64748B; display: block; margin-bottom: 0.25rem;">Baobab Beach Resort</span>
+                                    <small style="color: #94A3B8;">Paid: Dec 5, 2024 • Order #SW-7840</small>
+                                </div>
+                                <div class="invoice-details" style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;">
+                                    <span class="invoice-amount" style="font-weight: 700; color: #1E293B; font-size: 1.2rem;">KSh 42,800</span>
+                                    <span class="invoice-status paid" style="background: var(--secondary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">Paid</span>
+                                    <div class="invoice-actions" style="display: flex; gap: 0.5rem;">
+                                        <button class="btn btn-primary btn-small" onclick="generateInvoice('INV-2024-0010')">
+                                            <i class="fas fa-download"></i> Download
+                                        </button>
+                                        <button class="btn btn-outline btn-small" onclick="viewInvoice('INV-2024-0010')">
+                                            <i class="fas fa-eye"></i> View
                                         </button>
                                     </div>
                                 </div>
@@ -146,36 +188,83 @@
                         </div>
                     </div>
 
-                    <!-- Inventory Management -->
+                    <!-- Quick Invoice Generation -->
                     <div class="dashboard-card-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
                         <div class="card-header-light" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #E2E8F0;">
                             <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
-                                <i class="fas fa-box-open" style="color: var(--primary);"></i> Inventory Status
+                                <i class="fas fa-bolt" style="color: var(--primary);"></i> Quick Invoice Generator
                             </h3>
-                            <button class="btn btn-outline btn-small" onclick="updateInventory()">
-                                <i class="fas fa-edit"></i> Update All
-                            </button>
                         </div>
-                        <div class="inventory-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                            <div class="inventory-item" style="background: #F8FAFC; padding: 1.5rem; border-radius: 10px; border: 1px solid #E2E8F0;">
-                                <div class="inventory-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                                    <span style="color: #1E293B; font-weight: 600;">Toilet Paper</span>
-                                    <span class="stock-level high" style="background: var(--secondary); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">In Stock</span>
+                        
+                        <div class="quick-invoice-form">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                                <div class="form-group">
+                                    <label style="display: block; margin-bottom: 0.5rem; color: #374151; font-weight: 500;">Customer</label>
+                                    <select style="width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1rem;">
+                                        <option value="">Select Hotel...</option>
+                                        <option value="sarova">Sarova Whitesands Beach Resort</option>
+                                        <option value="diani">Diani Sea Resort</option>
+                                        <option value="baobab">Baobab Beach Resort</option>
+                                    </select>
                                 </div>
-                                <div class="inventory-details">
-                                    <div class="stock-amount" style="font-size: 1.5rem; font-weight: 700; color: #1E293B; margin-bottom: 0.5rem;">150 cartons</div>
-                                    <div class="stock-warning" style="font-size: 0.8rem; color: #64748B;">Reorder at 30 cartons</div>
+                                <div class="form-group">
+                                    <label style="display: block; margin-bottom: 0.5rem; color: #374151; font-weight: 500;">Due Date</label>
+                                    <input type="date" style="width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1rem;">
                                 </div>
                             </div>
-                            <div class="inventory-item" style="background: #F8FAFC; padding: 1.5rem; border-radius: 10px; border: 1px solid #E2E8F0;">
-                                <div class="inventory-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                                    <span style="color: #1E293B; font-weight: 600;">Bath Tissue</span>
-                                    <span class="stock-level medium" style="background: var(--accent); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">Low Stock</span>
+
+                            <div class="invoice-items" style="margin-bottom: 1.5rem;">
+                                <h4 style="color: #1E293B; margin-bottom: 1rem;">Invoice Items</h4>
+                                <div class="invoice-item-row" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 0.5rem; margin-bottom: 0.5rem; align-items: end;">
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.25rem; color: #64748B; font-size: 0.8rem;">Item Description</label>
+                                        <input type="text" placeholder="Item description" style="width: 100%; padding: 8px; border: 1px solid #D1D5DB; border-radius: 5px;">
+                                    </div>
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.25rem; color: #64748B; font-size: 0.8rem;">Quantity</label>
+                                        <input type="number" placeholder="Qty" style="width: 100%; padding: 8px; border: 1px solid #D1D5DB; border-radius: 5px;">
+                                    </div>
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.25rem; color: #64748B; font-size: 0.8rem;">Unit Price</label>
+                                        <input type="number" placeholder="Price" style="width: 100%; padding: 8px; border: 1px solid #D1D5DB; border-radius: 5px;">
+                                    </div>
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.25rem; color: #64748B; font-size: 0.8rem;">Amount</label>
+                                        <input type="text" value="KSh 0" readonly style="width: 100%; padding: 8px; border: 1px solid #D1D5DB; border-radius: 5px; background: #F8FAFC;">
+                                    </div>
+                                    <div>
+                                        <button class="btn-icon" style="background: none; border: none; color: #ef4444; cursor: pointer; padding: 8px;">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="inventory-details">
-                                    <div class="stock-amount" style="font-size: 1.5rem; font-weight: 700; color: #1E293B; margin-bottom: 0.5rem;">45 cartons</div>
-                                    <div class="stock-warning" style="font-size: 0.8rem; color: #64748B;">Reorder now</div>
+                                <button class="btn btn-outline btn-small" onclick="addInvoiceItem()" style="margin-top: 0.5rem;">
+                                    <i class="fas fa-plus"></i> Add Item
+                                </button>
+                            </div>
+
+                            <div class="invoice-totals" style="background: #F8FAFC; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span>Subtotal:</span>
+                                    <strong>KSh 0.00</strong>
                                 </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span>VAT (16%):</span>
+                                    <strong>KSh 0.00</strong>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold; border-top: 1px solid #D1D5DB; padding-top: 0.5rem;">
+                                    <span>Total:</span>
+                                    <strong style="color: var(--primary);">KSh 0.00</strong>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                                <button class="btn btn-outline" onclick="saveDraft()">
+                                    <i class="fas fa-save"></i> Save Draft
+                                </button>
+                                <button class="btn btn-primary" onclick="generateNewInvoice()">
+                                    <i class="fas fa-file-invoice"></i> Generate Invoice
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -183,58 +272,93 @@
 
                 <!-- Right Column - Sidebar -->
                 <div class="dashboard-column">
-                    <!-- Supplier Performance -->
+                    <!-- Invoice Summary -->
                     <div class="dashboard-card-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 2rem;">
                         <div class="card-header-light" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #E2E8F0;">
                             <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
-                                <i class="fas fa-trophy" style="color: var(--primary);"></i> Performance
+                                <i class="fas fa-chart-pie" style="color: var(--primary);"></i> Invoice Summary
                             </h3>
                         </div>
-                        <div class="performance-stats" style="display: flex; flex-direction: column; gap: 1.5rem;">
-                            <div class="performance-item" style="display: flex; justify-content: space-between; align-items: center;">
-                                <div class="performance-metric">
-                                    <div class="metric-value" style="font-size: 1.8rem; font-weight: 700; color: #1E293B;">4.8</div>
-                                    <div class="metric-label" style="font-size: 0.8rem; color: #64748B;">Average Rating</div>
+                        <div class="invoice-summary">
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #F1F5F9;">
+                                    <span style="color: #64748B;">Total Invoices:</span>
+                                    <strong style="color: #1E293B;">24</strong>
                                 </div>
-                                <div class="performance-stars" style="color: var(--accent); font-size: 1.2rem;">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #F1F5F9;">
+                                    <span style="color: #64748B;">Pending Payment:</span>
+                                    <strong style="color: #1E293B;">KSh 184,200</strong>
                                 </div>
-                            </div>
-                            <div class="performance-item" style="display: flex; justify-content: space-between; align-items: center;">
-                                <div class="performance-metric">
-                                    <div class="metric-value" style="font-size: 1.8rem; font-weight: 700; color: #1E293B;">98%</div>
-                                    <div class="metric-label" style="font-size: 0.8rem; color: #64748B;">Order Completion</div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #F1F5F9;">
+                                    <span style="color: #64748B;">Paid This Month:</span>
+                                    <strong style="color: #1E293B;">KSh 892,500</strong>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0;">
+                                    <span style="color: #64748B;">Overdue Amount:</span>
+                                    <strong style="color: #ef4444;">KSh 38,200</strong>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Revenue Overview -->
+                    <!-- Recent Activity -->
                     <div class="dashboard-card-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 2rem;">
                         <div class="card-header-light" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #E2E8F0;">
                             <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
-                                <i class="fas fa-money-bill-wave" style="color: var(--primary);"></i> Revenue This Month
+                                <i class="fas fa-history" style="color: var(--primary);"></i> Recent Activity
                             </h3>
                         </div>
-                        <div class="revenue-overview">
-                            <div class="revenue-total" style="text-align: center; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #E2E8F0;">
-                                <div class="revenue-amount" style="font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem;">KSh 1,248,500</div>
-                                <div class="revenue-label" style="color: #64748B; font-size: 0.9rem;">Total Revenue</div>
-                            </div>
-                            <div class="revenue-breakdown" style="display: flex; flex-direction: column; gap: 1rem;">
-                                <div class="revenue-item" style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #F1F5F9;">
-                                    <span style="color: #64748B;">Completed Orders:</span>
-                                    <strong style="color: #1E293B; font-weight: 600;">42</strong>
+                        <div class="activity-list">
+                            <div class="activity-item" style="display: flex; align-items: center; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #F1F5F9;">
+                                <div class="activity-icon" style="width: 40px; height: 40px; border-radius: 50%; background: var(--secondary); color: white; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-check"></i>
                                 </div>
-                                <div class="revenue-item" style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0;">
-                                    <span style="color: #64748B;">Pending Payments:</span>
-                                    <strong style="color: #1E293B; font-weight: 600;">KSh 184,200</strong>
+                                <div>
+                                    <strong style="color: #1E293B; display: block;">Invoice Paid</strong>
+                                    <span style="color: #64748B; font-size: 0.9rem;">INV-2024-0010 - KSh 42,800</span>
+                                    <small style="color: #94A3B8;">2 hours ago</small>
                                 </div>
                             </div>
+                            <div class="activity-item" style="display: flex; align-items: center; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #F1F5F9;">
+                                <div class="activity-icon" style="width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-paper-plane"></i>
+                                </div>
+                                <div>
+                                    <strong style="color: #1E293B; display: block;">Reminder Sent</strong>
+                                    <span style="color: #64748B; font-size: 0.9rem;">INV-2024-0011 - Diani Sea Resort</span>
+                                    <small style="color: #94A3B8;">1 day ago</small>
+                                </div>
+                            </div>
+                            <div class="activity-item" style="display: flex; align-items: center; gap: 1rem; padding: 1rem 0;">
+                                <div class="activity-icon" style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-file-invoice"></i>
+                                </div>
+                                <div>
+                                    <strong style="color: #1E293B; display: block;">New Invoice Created</strong>
+                                    <span style="color: #64748B; font-size: 0.9rem;">INV-2024-0012 - Sarova Whitesands</span>
+                                    <small style="color: #94A3B8;">2 days ago</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Export Options -->
+                    <div class="dashboard-card-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        <div class="card-header-light" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #E2E8F0;">
+                            <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
+                                <i class="fas fa-download" style="color: var(--primary);"></i> Export Data
+                            </h3>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <button class="btn btn-outline" style="width: 100%; justify-content: center;" onclick="exportInvoices('pdf')">
+                                <i class="fas fa-file-pdf"></i> Export as PDF
+                            </button>
+                            <button class="btn btn-outline" style="width: 100%; justify-content: center;" onclick="exportInvoices('excel')">
+                                <i class="fas fa-file-excel"></i> Export as Excel
+                            </button>
+                            <button class="btn btn-outline" style="width: 100%; justify-content: center;" onclick="exportInvoices('csv')">
+                                <i class="fas fa-file-csv"></i> Export as CSV
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -243,24 +367,61 @@
     </section>
 
     <script>
+        // Invoice Management Functions
+        function createNewInvoice() {
+            alert('Opening new invoice form...');
+            // In real implementation, this would open a modal or navigate to invoice creation
+        }
+
+        function generateInvoice(invoiceId) {
+            alert(`Generating invoice ${invoiceId} as PDF...`);
+            // In real implementation, this would generate and download PDF
+        }
+
+        function markAsPaid(invoiceId) {
+            if(confirm(`Mark invoice ${invoiceId} as paid?`)) {
+                alert(`Invoice ${invoiceId} marked as paid!`);
+                // In real implementation, this would update database
+            }
+        }
+
+        function sendReminder(invoiceId) {
+            alert(`Sending payment reminder for ${invoiceId}...`);
+            // In real implementation, this would send email/SMS reminder
+        }
+
+        function viewInvoice(invoiceId) {
+            alert(`Viewing invoice ${invoiceId}...`);
+            // In real implementation, this would open invoice viewer
+        }
+
+        function filterInvoices(filter) {
+            alert(`Filtering invoices by: ${filter}`);
+            // In real implementation, this would filter the invoice list
+        }
+
+        function addInvoiceItem() {
+            alert('Adding new invoice item row...');
+            // In real implementation, this would add new item row to form
+        }
+
+        function saveDraft() {
+            alert('Saving invoice as draft...');
+            // In real implementation, this would save to database
+        }
+
+        function generateNewInvoice() {
+            alert('Generating new invoice...');
+            // In real implementation, this would create and save invoice
+        }
+
+        function exportInvoices(format) {
+            alert(`Exporting invoices as ${format.toUpperCase()}...`);
+            // In real implementation, this would generate export file
+        }
+
         function updateInventory() {
-            alert('Inventory update modal would open here!');
-        }
-
-        function viewAnalytics() {
-            alert('Analytics dashboard would open!');
-        }
-
-        function acceptOrder(orderId) {
-            if(confirm(`Accept order #SW-${orderId}? This will confirm you can fulfill this order.`)) {
-                alert(`Order #SW-${orderId} accepted! Update delivery timeline.`);
-            }
-        }
-
-        function declineOrder(orderId) {
-            if(confirm(`Decline order #SW-${orderId}? Please provide a reason.`)) {
-                alert(`Order #SW-${orderId} declined.`);
-            }
+            alert('Opening inventory management...');
         }
 
         // Add hover effects
@@ -276,9 +437,9 @@
                 });
             });
 
-            // Inventory items hover
-            const inventoryItems = document.querySelectorAll('.inventory-item');
-            inventoryItems.forEach(item => {
+            // Invoice items hover
+            const invoiceItems = document.querySelectorAll('.invoice-item');
+            invoiceItems.forEach(item => {
                 item.addEventListener('mouseenter', function() {
                     this.style.transform = 'translateY(-2px)';
                 });
