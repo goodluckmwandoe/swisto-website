@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SWISTO - Emergency Supply Platform for Kenyan Hospitality</title>
+    <title>SWISTO - Emergency Supply Platform</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -11,12 +11,7 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
-                <a href="index.html">
-                    <img src="images/swisto-logo.png" alt="SWISTO Kenya" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-                    <div style="color: var(--primary); font-weight: bold; font-size: 1.5rem; display: none;">SWISTO</div>
-                </a>
-            </div>
+            <a href="index.html" class="nav-logo">SWISTO</a>
             <div class="nav-menu">
                 <a href="#home" class="nav-link">Home</a>
                 <a href="#about" class="nav-link">About</a>
@@ -38,7 +33,7 @@
         <div class="hero-container">
             <div class="hero-content">
                 <h1>Emergency Supply Platform for Kenyan Hospitality</h1>
-                <p>SWISTO connects hotels with verified suppliers for same-day delivery of essential supplies. Never face operational disruptions again.</p>
+                <p>Connect with verified suppliers for same-day delivery of essential supplies. Never face operational disruptions again.</p>
                 <div class="hero-buttons">
                     <a href="hotel-login.html" class="btn btn-primary">Access Platform</a>
                     <a href="#about" class="btn btn-secondary">Learn More</a>
@@ -50,20 +45,20 @@
                     </div>
                     <div class="stat">
                         <h3>24/7</h3>
-                        <p>Emergency Service</p>
+                        <p>Service</p>
                     </div>
                     <div class="stat">
                         <h3>100%</h3>
-                        <p>Verified Suppliers</p>
+                        <p>Verified</p>
                     </div>
                 </div>
             </div>
             <div class="hero-image">
                 <div class="emergency-card">
-                    <h4><i class="fas fa-exclamation-triangle"></i> EMERGENCY REQUEST</h4>
+                    <h4><i class="fas fa-exclamation-triangle"></i> Emergency Request</h4>
                     <p>Get connected to verified suppliers in minutes</p>
-                    <a href="https://wa.me/254794465650?text=Emergency%20supply%20needed" class="btn-whatsapp">
-                        <i class="fab fa-whatsapp"></i> WhatsApp Emergency Line
+                    <a href="https://wa.me/254794465650" class="btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> WhatsApp Emergency
                     </a>
                 </div>
             </div>
@@ -74,167 +69,96 @@
     <section id="about" class="section section-light">
         <div class="container">
             <h2 class="section-title">What is SWISTO?</h2>
-            <p class="section-subtitle">Kenya's premier emergency procurement platform specifically designed for the hospitality industry</p>
+            <p class="section-subtitle">Kenya's premier emergency procurement platform for the hospitality industry</p>
             
             <div class="card-grid">
-                <div class="card">
-                    <div class="card-icon">
-                        <i class="fas fa-bullseye"></i>
-                    </div>
-                    <h3>Our Mission</h3>
-                    <p>To eliminate operational disruptions in hospitality through reliable, tech-enabled emergency supply chain solutions.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">
-                        <i class="fas fa-eye"></i>
-                    </div>
-                    <h3>Our Vision</h3>
-                    <p>To become East Africa's most trusted emergency supply network for the hospitality industry.</p>
-                </div>
-            </div>
-
-            <div class="card-grid" style="margin-top: 3rem;">
                 <div class="card">
                     <div class="card-icon">
                         <i class="fas fa-hotel"></i>
                     </div>
                     <h3>For Hotels & Resorts</h3>
-                    <p>Instant access to verified suppliers, real-time stock visibility, and guaranteed same-day delivery for emergency needs.</p>
-                    <ul style="list-style: none; margin-top: 1rem;">
-                        <li style="padding: 0.25rem 0;">✓ Verified supplier network</li>
-                        <li style="padding: 0.25rem 0;">✓ Real-time stock levels</li>
-                        <li style="padding: 0.25rem 0;">✓ Same-day delivery guarantee</li>
-                        <li style="padding: 0.25rem 0;">✓ Quality assurance</li>
-                    </ul>
+                    <p>Instant access to verified suppliers with real-time stock visibility and guaranteed same-day delivery.</p>
                 </div>
                 <div class="card">
                     <div class="card-icon">
                         <i class="fas fa-truck"></i>
                     </div>
-                    <h3>For Suppliers & Vendors</h3>
-                    <p>Direct access to premium hotel clients, streamlined order management, and business growth opportunities.</p>
-                    <ul style="list-style: none; margin-top: 1rem;">
-                        <li style="padding: 0.25rem 0;">✓ Qualified emergency leads</li>
-                        <li style="padding: 0.25rem 0;">✓ Premium hotel clients</li>
-                        <li style="padding: 0.25rem 0;">✓ Real-time order management</li>
-                        <li style="padding: 0.25rem 0;">✓ Business growth opportunities</li>
-                    </ul>
+                    <h3>For Suppliers</h3>
+                    <p>Direct access to premium hotel clients with streamlined order management and business growth opportunities.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How It Works Section -->
+    <!-- How It Works -->
     <section id="how-it-works" class="section">
         <div class="container">
-            <h2 class="section-title">How SWISTO Works</h2>
+            <h2 class="section-title">How It Works</h2>
             
-            <div style="text-align: center; margin-bottom: 3rem;">
-                <button class="btn btn-outline" onclick="showTab('hotel')" id="hotel-tab-btn">For Hotels</button>
-                <button class="btn btn-outline" onclick="showTab('supplier')" id="supplier-tab-btn">For Suppliers</button>
-            </div>
-
-            <div id="hotel-tab">
-                <div class="steps">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <h3>Register Your Hotel</h3>
-                        <p>Create your hotel account with verification to access our supplier network</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <h3>Set Delivery Location</h3>
-                        <p>Specify your hotel location for accurate supplier matching</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <h3>Browse Suppliers</h3>
-                        <p>View verified suppliers with real-time stock levels and ratings</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">4</div>
-                        <h3>Place Order</h3>
-                        <p>Order with confidence knowing stock is available</p>
-                    </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Register</h3>
+                    <p>Create your account with verification</p>
                 </div>
-            </div>
-
-            <div id="supplier-tab" style="display: none;">
-                <div class="steps">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <h3>Apply as Supplier</h3>
-                        <p>Submit your business details for verification</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <h3>Choose Subscription</h3>
-                        <p>Select your membership plan</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <h3>Manage Inventory</h3>
-                        <p>Update real-time stock levels in your dashboard</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">4</div>
-                        <h3>Receive Orders</h3>
-                        <p>Get qualified emergency leads from hotels</p>
-                    </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Browse</h3>
+                    <p>Find verified suppliers with real stock</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Order</h3>
+                    <p>Place your emergency order</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Deliver</h3>
+                    <p>Get same-day delivery</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pricing Section -->
+    <!-- Pricing -->
     <section id="pricing" class="section section-light">
         <div class="container">
-            <h2 class="section-title">Supplier Membership Plans</h2>
-            <p class="section-subtitle">Join Kenya's premier hospitality supply network</p>
+            <h2 class="section-title">Supplier Plans</h2>
+            <p class="section-subtitle">Join our network of trusted suppliers</p>
             
             <div class="pricing-plans">
                 <div class="plan">
-                    <div class="plan-header">
-                        <h3>Basic</h3>
-                        <div class="price">KSh 2,500<span>/month</span></div>
-                    </div>
+                    <h3>Basic</h3>
+                    <div class="price">KSh 2,500<span>/month</span></div>
                     <ul class="plan-features">
-                        <li><i class="fas fa-check"></i> Supplier Listing</li>
-                        <li><i class="fas fa-check"></i> Emergency Requests</li>
-                        <li><i class="fas fa-check"></i> Basic Order Management</li>
-                        <li><i class="fas fa-times"></i> Priority Notification</li>
-                        <li><i class="fas fa-times"></i> Featured Badge</li>
+                        <li>Supplier Listing</li>
+                        <li>Emergency Requests</li>
+                        <li>Basic Order Management</li>
                     </ul>
                     <a href="supplier-register.html" class="btn btn-outline">Get Started</a>
                 </div>
                 
                 <div class="plan featured">
                     <div class="plan-badge">Most Popular</div>
-                    <div class="plan-header">
-                        <h3>Premium</h3>
-                        <div class="price">KSh 5,000<span>/month</span></div>
-                    </div>
+                    <h3>Premium</h3>
+                    <div class="price">KSh 5,000<span>/month</span></div>
                     <ul class="plan-features">
-                        <li><i class="fas fa-check"></i> Top Search Placement</li>
-                        <li><i class="fas fa-check"></i> Priority Notification</li>
-                        <li><i class="fas fa-check"></i> Featured Supplier Badge</li>
-                        <li><i class="fas fa-check"></i> Advanced Analytics</li>
-                        <li><i class="fas fa-check"></i> Dedicated Support</li>
+                        <li>Top Search Placement</li>
+                        <li>Priority Notification</li>
+                        <li>Featured Badge</li>
+                        <li>Advanced Analytics</li>
                     </ul>
                     <a href="supplier-register.html" class="btn btn-primary">Get Premium</a>
                 </div>
                 
                 <div class="plan">
-                    <div class="plan-header">
-                        <h3>Enterprise</h3>
-                        <div class="price">KSh 10,000<span>/month</span></div>
-                    </div>
+                    <h3>Enterprise</h3>
+                    <div class="price">KSh 10,000<span>/month</span></div>
                     <ul class="plan-features">
-                        <li><i class="fas fa-check"></i> All Premium Features</li>
-                        <li><i class="fas fa-check"></i> API Access</li>
-                        <li><i class="fas fa-check"></i> Custom Integration</li>
-                        <li><i class="fas fa-check"></i> Dedicated Manager</li>
-                        <li><i class="fas fa-check"></i> Custom Reporting</li>
+                        <li>All Premium Features</li>
+                        <li>API Access</li>
+                        <li>Custom Integration</li>
+                        <li>Dedicated Manager</li>
                     </ul>
                     <a href="#contact" class="btn btn-outline">Contact Sales</a>
                 </div>
@@ -242,70 +166,45 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section section-dark">
+    <!-- Contact -->
+    <section id="contact" class="section">
         <div class="container">
-            <h2 class="section-title">Contact SWISTO</h2>
+            <h2 class="section-title">Contact Us</h2>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
                 <div>
                     <h3 style="margin-bottom: 2rem;">Get in Touch</h3>
-                    <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
-                        <i class="fas fa-phone" style="margin-right: 1rem; color: var(--primary);"></i>
-                        <div>
-                            <h4>Emergency Hotline</h4>
-                            <p>+254 794 465 650</p>
-                        </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4>Emergency Hotline</h4>
+                        <p>+254 794 465 650</p>
                     </div>
-                    <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
-                        <i class="fab fa-whatsapp" style="margin-right: 1rem; color: var(--primary);"></i>
-                        <div>
-                            <h4>WhatsApp Business</h4>
-                            <p>+254 794 465 650</p>
-                        </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4>WhatsApp</h4>
+                        <p>+254 794 465 650</p>
                     </div>
-                    <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
-                        <i class="fas fa-envelope" style="margin-right: 1rem; color: var(--primary);"></i>
-                        <div>
-                            <h4>Email</h4>
-                            <p>henrymwandoe004@gmail.com</p>
-                        </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4>Email</h4>
+                        <p>henrymwandoe004@gmail.com</p>
                     </div>
-                    <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
-                        <i class="fas fa-map-marker-alt" style="margin-right: 1rem; color: var(--primary);"></i>
-                        <div>
-                            <h4>Headquarters</h4>
-                            <p>Diani, Kwale County, Kenya</p>
-                        </div>
+                    <div>
+                        <h4>Location</h4>
+                        <p>Diani, Kwale County, Kenya</p>
                     </div>
                 </div>
                 
                 <div>
-                    <h3 style="margin-bottom: 2rem;">Send us a Message</h3>
-                    <form id="contactForm">
+                    <h3 style="margin-bottom: 2rem;">Send Message</h3>
+                    <form>
                         <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" name="name" required>
+                            <label>Your Name</label>
+                            <input type="text" required>
                         </div>
                         <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" required>
+                            <label>Email</label>
+                            <input type="email" required>
                         </div>
                         <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="type">I am a</label>
-                            <select id="type" name="type" required>
-                                <option value="">Select...</option>
-                                <option value="hotel">Hotel/Resort Manager</option>
-                                <option value="supplier">Potential Supplier</option>
-                                <option value="partner">Business Partner</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="4" required></textarea>
+                            <label>Message</label>
+                            <textarea rows="4" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
@@ -319,27 +218,24 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>SWISTO Kenya</h4>
-                    <p>Kenya's premier emergency supply platform for the hospitality industry.</p>
+                    <h4>SWISTO</h4>
+                    <p>Emergency supply platform for Kenyan hospitality industry.</p>
                 </div>
                 <div class="footer-section">
-                    <h4>Quick Links</h4>
+                    <h4>Links</h4>
                     <a href="#home">Home</a>
                     <a href="#about">About</a>
                     <a href="#how-it-works">How It Works</a>
-                    <a href="#pricing">Supplier Plans</a>
                 </div>
                 <div class="footer-section">
-                    <h4>For Hotels</h4>
-                    <a href="hotel-register.html">Register Hotel</a>
-                    <a href="hotel-login.html">Hotel Login</a>
-                    <a href="#contact">Emergency Support</a>
+                    <h4>Hotels</h4>
+                    <a href="hotel-register.html">Register</a>
+                    <a href="hotel-login.html">Login</a>
                 </div>
                 <div class="footer-section">
-                    <h4>For Suppliers</h4>
-                    <a href="supplier-register.html">Join as Supplier</a>
-                    <a href="supplier-login.html">Supplier Login</a>
-                    <a href="#pricing">Pricing Plans</a>
+                    <h4>Suppliers</h4>
+                    <a href="supplier-register.html">Join</a>
+                    <a href="supplier-login.html">Login</a>
                 </div>
             </div>
             <div class="footer-bottom">
