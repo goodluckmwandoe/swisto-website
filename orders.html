@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders Management - SWISTO Supplier Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .orders-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            margin: 2rem 0;
+        }
+
+        .orders-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .orders-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+
+        .filter-group select {
+            padding: 8px 12px;
+            border: 1px solid #D1D5DB;
+            border-radius: 6px;
+            min-width: 150px;
+        }
+
+        .orders-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .order-stat-card {
+            background: #F8FAFC;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid var(--primary);
+        }
+
+        .order-stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1E293B;
+            display: block;
+        }
+
+        .order-stat-label {
+            color: #64748B;
+            font-size: 0.9rem;
+        }
+
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .orders-table th {
+            background: #F8FAFC;
+            padding: 1rem;
+            text-align: left;
+            color: #64748B;
+            font-weight: 600;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .orders-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .order-item:hover {
+            background: #F8FAFC;
+        }
+
+        .order-hotel {
+            font-weight: 600;
+            color: #1E293B;
+        }
+
+        .order-items {
+            color: #64748B;
+            font-size: 0.9rem;
+        }
+
+        .order-urgency {
+            padding: 0.4rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .urgency-normal { background: #DCFCE7; color: #166534; }
+        .urgency-high { background: #FEF3C7; color: #92400E; }
+        .urgency-emergency { background: #FEE2E2; color: #991B1B; }
+
+        .order-status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .status-pending { background: #FEF3C7; color: #92400E; }
+        .status-confirmed { background: #DCFCE7; color: #166534; }
+        .status-processing { background: #DBEAFE; color: #1E40AF; }
+        .status-shipped { background: #E0E7FF; color: #3730A3; }
+        .status-delivered { background: #D1FAE5; color: #065F46; }
+        .status-cancelled { background: #FEE2E2; color: #991B1B; }
+
+        .order-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-action {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .btn-confirm { background: var(--secondary); color: white; }
+        .btn-process { background: var(--primary); color: white; }
+        .btn-ship { background: #3B82F6; color: white; }
+        .btn-complete { background: #10B981; color: white; }
+        .btn-view { background: #6B7280; color: white; }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #64748B;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #9CA3AF;
+        }
+
+        .order-details-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .order-details-content {
+            background: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="swisto-logo.png" alt="SWISTO Kenya">
+                <span style="margin-left: 10px; font-weight: 600; color: #333;">Supplier Dashboard</span>
+            </div>
+            <div class="nav-menu">
+                <a href="supplier-dashboard.html" class="nav-link"><i class="fas fa-chart-pie"></i> Overview</a>
+                <a href="orders.html" class="nav-link active"><i class="fas fa-shopping-cart"></i> Orders</a>
+                <a href="#inventory" class="nav-link"><i class="fas fa-boxes"></i> Inventory</a>
+                <a href="add-product.html" class="nav-link"><i class="fas fa-cube"></i> Products</a>
+                <a href="#performance" class="nav-link"><i class="fas fa-trophy"></i> Performance</a>
+            </div>
+            <div class="nav-user">
+                <span class="user-name">Nakuru Supplies Ltd</span>
+                <div class="user-avatar" style="background: var(--secondary); color: white;">
+                    <i class="fas fa-building"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="supplier-dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Orders Management</span>
+            </div>
+            <h1 style="color: #1E293B; margin-bottom: 0.5rem;">Orders Management</h1>
+            <p style="color: #64748B;">View and process orders from hotels</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="dashboard-content" style="padding: 0 0 80px;">
+        <div class="container">
+            <div class="orders-container">
+                <!-- Orders Stats -->
+                <div class="orders-stats">
+                    <div class="order-stat-card">
+                        <span class="order-stat-number" id="pendingOrders">0</span>
+                        <span class="order-stat-label">Pending Orders</span>
+                    </div>
+                    <div class="order-stat-card">
+                        <span class="order-stat-number" id="todayOrders">0</span>
+                        <span class="order-stat-label">Today's Orders</span>
+                    </div>
+                    <div class="order-stat-card">
+                        <span class="order-stat-number" id="urgentOrders">0</span>
+                        <span class="order-stat-label">Urgent Orders</span>
+                    </div>
+                    <div class="order-stat-card">
+                        <span class="order-stat-number" id="totalRevenue">KES 0</span>
+                        <span class="order-stat-label">Total Revenue</span>
+                    </div>
+                </div>
+
+                <!-- Orders Filters -->
+                <div class="orders-filters">
+                    <div class="filter-group">
+                        <label>Status</label>
+                        <select id="statusFilter">
+                            <option value="all">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="processing">Processing</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="delivered">Delivered</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Urgency</label>
+                        <select id="urgencyFilter">
+                            <option value="all">All Urgency</option>
+                            <option value="normal">Normal</option>
+                            <option value="high">High</option>
+                            <option value="emergency">Emergency</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Date Range</label>
+                        <select id="dateFilter">
+                            <option value="today">Today</option>
+                            <option value="week">This Week</option>
+                            <option value="month">This Month</option>
+                            <option value="all">All Time</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Hotel</label>
+                        <select id="hotelFilter">
+                            <option value="all">All Hotels</option>
+                            <option value="serena">Serena Hotel</option>
+                            <option value="safari">Safari Park Hotel</option>
+                            <option value="tribe">The Tribe Hotel</option>
+                            <option value="fairmont">Fairmont Norfolk</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Orders Table -->
+                <div class="orders-table-container">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Hotel</th>
+                                <th>Items</th>
+                                <th>Total Amount</th>
+                                <th>Order Date</th>
+                                <th>Delivery Date</th>
+                                <th>Urgency</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <!-- Orders will be loaded here dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3>No Orders Found</h3>
+                    <p>There are no orders matching your current filters.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Details Modal -->
+    <div id="orderDetailsModal" class="order-details-modal">
+        <div class="order-details-content">
+            <div class="modal-header" style="padding: 2rem 2rem 1rem; border-bottom: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="color: #1E293B; margin: 0; display: flex; align-items: center; gap: 0.75rem;">
+                    <i class="fas fa-file-invoice" style="color: var(--primary);"></i> Order Details
+                </h2>
+                <button class="btn-icon" onclick="closeOrderDetails()" style="background: none; border: none; font-size: 1.5rem; color: #64748B; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="padding: 2rem;" id="orderDetailsContent">
+                <!-- Order details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample orders data
+        const sampleOrders = [
+            {
+                id: 'ORD-001',
+                hotel: 'Serena Hotel',
+                hotelId: 'serena',
+                items: [
+                    { name: 'Toilet Paper (4-ply)', quantity: 20, price: 2500, unit: 'cartons' },
+                    { name: 'Bath Tissue (2-ply)', quantity: 15, price: 1800, unit: 'cartons' }
+                ],
+                totalAmount: 77000,
+                orderDate: '2024-01-15',
+                deliveryDate: '2024-01-16',
+                urgency: 'high',
+                status: 'pending',
+                notes: 'Please deliver before 10 AM',
+                contact: 'John Doe - 0712 345 678'
+            },
+            {
+                id: 'ORD-002',
+                hotel: 'Safari Park Hotel',
+                hotelId: 'safari',
+                items: [
+                    { name: 'Guest Shampoo (200ml)', quantity: 50, price: 350, unit: 'bottles' },
+                    { name: 'Hand Soap', quantity: 30, price: 450, unit: 'pieces' }
+                ],
+                totalAmount: 31000,
+                orderDate: '2024-01-15',
+                deliveryDate: '2024-01-17',
+                urgency: 'normal',
+                status: 'confirmed',
+                notes: 'Ground floor reception',
+                contact: 'Jane Smith - 0733 444 555'
+            },
+            {
+                id: 'ORD-003',
+                hotel: 'The Tribe Hotel',
+                hotelId: 'tribe',
+                items: [
+                    { name: 'Toilet Paper (4-ply)', quantity: 10, price: 2500, unit: 'cartons' },
+                    { name: 'Bath Tissue (2-ply)', quantity: 8, price: 1800, unit: 'cartons' },
+                    { name: 'Guest Shampoo (200ml)', quantity: 25, price: 350, unit: 'bottles' }
+                ],
+                totalAmount: 41750,
+                orderDate: '2024-01-14',
+                deliveryDate: '2024-01-15',
+                urgency: 'emergency',
+                status: 'processing',
+                notes: 'URGENT: Out of stock items',
+                contact: 'Mike Johnson - 0722 111 222'
+            }
+        ];
+
+        // Load orders from localStorage or use sample data
+        function loadOrders() {
+            let orders = JSON.parse(localStorage.getItem('supplierOrders') || '[]');
+            
+            // If no orders in localStorage, use sample data
+            if (orders.length === 0) {
+                orders = sampleOrders;
+                localStorage.setItem('supplierOrders', JSON.stringify(orders));
+            }
+            
+            return orders;
+        }
+
+        // Display orders in table
+        function displayOrders(orders) {
+            const tbody = document.getElementById('ordersTableBody');
+            const emptyState = document.getElementById('emptyState');
+            
+            tbody.innerHTML = '';
+            
+            if (orders.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            orders.forEach(order => {
+                const row = document.createElement('tr');
+                row.className = 'order-item';
+                
+                // Calculate total items count
+                const totalItems = order.items.reduce((sum, item) => sum + item.quantity, 0);
+                
+                row.innerHTML = `
+                    <td>
+                        <strong>${order.id}</strong>
+                    </td>
+                    <td>
+                        <div class="order-hotel">${order.hotel}</div>
+                        <small style="color: #64748B;">${order.contact}</small>
+                    </td>
+                    <td>
+                        <div class="order-items">${totalItems} items</div>
+                        <small style="color: #64748B;">${order.items[0].name} +${order.items.length - 1} more</small>
+                    </td>
+                    <td>
+                        <strong>KES ${order.totalAmount.toLocaleString()}</strong>
+                    </td>
+                    <td>${formatDate(order.orderDate)}</td>
+                    <td>${formatDate(order.deliveryDate)}</td>
+                    <td>
+                        <span class="order-urgency urgency-${order.urgency}">
+                            ${order.urgency.toUpperCase()}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="order-status status-${order.status}">
+                            ${order.status.toUpperCase()}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="order-actions">
+                            <button class="btn-action btn-view" onclick="viewOrderDetails('${order.id}')">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                            ${getActionButton(order.status, order.id)}
+                        </div>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+
+        function getActionButton(status, orderId) {
+            switch(status) {
+                case 'pending':
+                    return `<button class="btn-action btn-confirm" onclick="updateOrderStatus('${orderId}', 'confirmed')">
+                                <i class="fas fa-check"></i> Confirm
+                            </button>`;
+                case 'confirmed':
+                    return `<button class="btn-action btn-process" onclick="updateOrderStatus('${orderId}', 'processing')">
+                                <i class="fas fa-cog"></i> Process
+                            </button>`;
+                case 'processing':
+                    return `<button class="btn-action btn-ship" onclick="updateOrderStatus('${orderId}', 'shipped')">
+                                <i class="fas fa-shipping-fast"></i> Ship
+                            </button>`;
+                case 'shipped':
+                    return `<button class="btn-action btn-complete" onclick="updateOrderStatus('${orderId}', 'delivered')">
+                                <i class="fas fa-check-circle"></i> Complete
+                            </button>`;
+                default:
+                    return '';
+            }
+        }
+
+        function updateOrderStatus(orderId, newStatus) {
+            const orders = loadOrders();
+            const orderIndex = orders.findIndex(order => order.id === orderId);
+            
+            if (orderIndex !== -1) {
+                orders[orderIndex].status = newStatus;
+                localStorage.setItem('supplierOrders', JSON.stringify(orders));
+                
+                // Reapply filters and refresh display
+                applyFilters();
+                alert(`Order ${orderId} status updated to ${newStatus}`);
+            }
+        }
+
+        function viewOrderDetails(orderId) {
+            const orders = loadOrders();
+            const order = orders.find(order => order.id === orderId);
+            
+            if (order) {
+                const modalContent = document.getElementById('orderDetailsContent');
+                modalContent.innerHTML = `
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                        <div>
+                            <h4 style="color: #1E293B; margin-bottom: 1rem;">Order Information</h4>
+                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                <div><strong>Order ID:</strong> ${order.id}</div>
+                                <div><strong>Hotel:</strong> ${order.hotel}</div>
+                                <div><strong>Contact:</strong> ${order.contact}</div>
+                                <div><strong>Order Date:</strong> ${formatDate(order.orderDate)}</div>
+                                <div><strong>Delivery Date:</strong> ${formatDate(order.deliveryDate)}</div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="color: #1E293B; margin-bottom: 1rem;">Status & Urgency</h4>
+                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                <div>
+                                    <strong>Status:</strong> 
+                                    <span class="order-status status-${order.status}">
+                                        ${order.status.toUpperCase()}
+                                    </span>
+                                </div>
+                                <div>
+                                    <strong>Urgency:</strong> 
+                                    <span class="order-urgency urgency-${order.urgency}">
+                                        ${order.urgency.toUpperCase()}
+                                    </span>
+                                </div>
+                                <div><strong>Total Amount:</strong> KES ${order.totalAmount.toLocaleString()}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: #1E293B; margin-bottom: 1rem;">Order Items</h4>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background: #F8FAFC;">
+                                    <th style="padding: 0.75rem; text-align: left;">Product</th>
+                                    <th style="padding: 0.75rem; text-align: center;">Quantity</th>
+                                    <th style="padding: 0.75rem; text-align: right;">Unit Price</th>
+                                    <th style="padding: 0.75rem; text-align: right;">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${order.items.map(item => `
+                                    <tr>
+                                        <td style="padding: 0.75rem; border-bottom: 1px solid #F1F5F9;">${item.name}</td>
+                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #F1F5F9;">${item.quantity} ${item.unit}</td>
+                                        <td style="padding: 0.75rem; text-align: right; border-bottom: 1px solid #F1F5F9;">KES ${item.price}</td>
+                                        <td style="padding: 0.75rem; text-align: right; border-bottom: 1px solid #F1F5F9;">KES ${(item.quantity * item.price).toLocaleString()}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    ${order.notes ? `
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: #1E293B; margin-bottom: 1rem;">Special Instructions</h4>
+                        <div style="background: #F8FAFC; padding: 1rem; border-radius: 8px; border-left: 4px solid var(--accent);">
+                            ${order.notes}
+                        </div>
+                    </div>
+                    ` : ''}
+                    
+                    <div class="form-actions" style="display: flex; gap: 1rem; justify-content: flex-end; padding-top: 2rem; border-top: 1px solid #E2E8F0;">
+                        <button class="btn btn-outline" onclick="closeOrderDetails()">
+                            Close
+                        </button>
+                        ${getActionButton(order.status, order.id)}
+                    </div>
+                `;
+                
+                document.getElementById('orderDetailsModal').style.display = 'flex';
+            }
+        }
+
+        function closeOrderDetails() {
+            document.getElementById('orderDetailsModal').style.display = 'none';
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+        }
+
+        function updateStats(orders) {
+            const today = new Date().toDateString();
+            
+            const pendingOrders = orders.filter(order => order.status === 'pending').length;
+            const todayOrders = orders.filter(order => 
+                new Date(order.orderDate).toDateString() === today
+            ).length;
+            const urgentOrders = orders.filter(order => 
+                order.urgency === 'emergency' && ['pending', 'confirmed', 'processing'].includes(order.status)
+            ).length;
+            const totalRevenue = orders.reduce((sum, order) => sum + order.totalAmount, 0);
+            
+            document.getElementById('pendingOrders').textContent = pendingOrders;
+            document.getElementById('todayOrders').textContent = todayOrders;
+            document.getElementById('urgentOrders').textContent = urgentOrders;
+            document.getElementById('totalRevenue').textContent = `KES ${totalRevenue.toLocaleString()}`;
+        }
+
+        function applyFilters() {
+            const orders = loadOrders();
+            const statusFilter = document.getElementById('statusFilter').value;
+            const urgencyFilter = document.getElementById('urgencyFilter').value;
+            const dateFilter = document.getElementById('dateFilter').value;
+            const hotelFilter = document.getElementById('hotelFilter').value;
+            
+            let filteredOrders = orders;
+            
+            // Apply status filter
+            if (statusFilter !== 'all') {
+                filteredOrders = filteredOrders.filter(order => order.status === statusFilter);
+            }
+            
+            // Apply urgency filter
+            if (urgencyFilter !== 'all') {
+                filteredOrders = filteredOrders.filter(order => order.urgency === urgencyFilter);
+            }
+            
+            // Apply hotel filter
+            if (hotelFilter !== 'all') {
+                filteredOrders = filteredOrders.filter(order => order.hotelId === hotelFilter);
+            }
+            
+            // Apply date filter
+            const now = new Date();
+            if (dateFilter === 'today') {
+                filteredOrders = filteredOrders.filter(order => 
+                    new Date(order.orderDate).toDateString() === now.toDateString()
+                );
+            } else if (dateFilter === 'week') {
+                const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+                filteredOrders = filteredOrders.filter(order => 
+                    new Date(order.orderDate) >= weekAgo
+                );
+            } else if (dateFilter === 'month') {
+                const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+                filteredOrders = filteredOrders.filter(order => 
+                    new Date(order.orderDate) >= monthAgo
+                );
+            }
+            
+            displayOrders(filteredOrders);
+            updateStats(filteredOrders);
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            applyFilters();
+            
+            // Add event listeners to filters
+            document.getElementById('statusFilter').addEventListener('change', applyFilters);
+            document.getElementById('urgencyFilter').addEventListener('change', applyFilters);
+            document.getElementById('dateFilter').addEventListener('change', applyFilters);
+            document.getElementById('hotelFilter').addEventListener('change', applyFilters);
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('orderDetailsModal');
+            if (event.target === modal) {
+                closeOrderDetails();
+            }
+        }
+    </script>
+</body>
+</html>
