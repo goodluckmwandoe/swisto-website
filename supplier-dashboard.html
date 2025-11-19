@@ -236,13 +236,26 @@
 
                 <!-- Right Column - Sidebar -->
                 <div class="dashboard-column">
-                    <!-- Quick Stock Update -->
-                    <div class="dashboard-card-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 2rem;">
-                        <div class="card-header-light" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #E2E8F0;">
-                            <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
-                                <i class="fas fa-bolt" style="color: var(--primary);"></i> Quick Stock Update
-                            </h3>
-                        </div>
+                   // Update quick stock update dropdown
+function updateQuickStockDropdown() {
+    const products = JSON.parse(localStorage.getItem('supplierProducts') || '[]');
+    const dropdown = document.querySelector('.quick-update-form select');
+    
+    if (!dropdown) return;
+    
+    // Clear existing options (keep the first "Choose product..." option)
+    while (dropdown.children.length > 1) {
+        dropdown.removeChild(dropdown.lastChild);
+    }
+    
+    // Add products to dropdown
+    products.forEach(product => {
+        const option = document.createElement('option');
+        option.value = product.sku;
+        option.textContent = `${product.name} (${product.sku})`;
+        dropdown.appendChild(option);
+    });
+}
                         
                         <div class="quick-update-form">
                             <div class="form-group" style="margin-bottom: 1rem;">
@@ -671,5 +684,6 @@ document.addEventListener('DOMContentLoaded', function() {
     loadProductsIntoTable();
     updateStatsCounters();
 });
+
 
 
