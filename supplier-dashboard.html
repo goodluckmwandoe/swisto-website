@@ -63,7 +63,7 @@
                     </div>
                     <div class="stat-info">
                         <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">Total Products</h3>
-                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;">24</div>
+                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;" id="totalProductsCount">24</div>
                     </div>
                 </div>
                 <div class="stat-card-light" style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease;">
@@ -72,7 +72,7 @@
                     </div>
                     <div class="stat-info">
                         <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">Low Stock Items</h3>
-                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;">5</div>
+                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;" id="lowStockCount">5</div>
                     </div>
                 </div>
                 <div class="stat-card-light" style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease;">
@@ -81,7 +81,7 @@
                     </div>
                     <div class="stat-info">
                         <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">Out of Stock</h3>
-                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;">2</div>
+                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;" id="outOfStockCount">2</div>
                     </div>
                 </div>
                 <div class="stat-card-light" style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease;">
@@ -110,8 +110,8 @@
                                     <i class="fas fa-edit"></i> Update All
                                 </button>
                                 <a href="add-product.html" class="btn btn-primary btn-small">
-    <i class="fas fa-plus"></i> Add Product
-</a>
+                                    <i class="fas fa-plus"></i> Add Product
+                                </a>
                             </div>
                         </div>
                         
@@ -127,7 +127,8 @@
                                         <th style="padding: 1rem; text-align: center; color: #64748B; font-weight: 600; border-bottom: 1px solid #E2E8F0;">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="inventoryTableBody">
+                                    <!-- Demo rows will remain, new products will be added here -->
                                     <tr style="border-bottom: 1px solid #F1F5F9;">
                                         <td style="padding: 1rem;">
                                             <strong style="color: #1E293B;">Toilet Paper (4-ply)</strong>
@@ -208,10 +209,10 @@
                             <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
                                 <i class="fas fa-bell" style="color: var(--accent);"></i> Stock Alerts
                             </h3>
-                            <span class="badge" style="background: var(--accent); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">5 Items Need Attention</span>
+                            <span class="badge" style="background: var(--accent); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;" id="alertsCount">5 Items Need Attention</span>
                         </div>
                         
-                        <div class="alerts-list">
+                        <div class="alerts-list" id="alertsList">
                             <div class="alert-item" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #FEF3C7; border: 1px solid #F59E0B; border-radius: 8px; margin-bottom: 0.75rem;">
                                 <div>
                                     <strong style="color: #92400E;">Bath Tissue (2-ply)</strong>
@@ -236,31 +237,18 @@
 
                 <!-- Right Column - Sidebar -->
                 <div class="dashboard-column">
-                   // Update quick stock update dropdown
-function updateQuickStockDropdown() {
-    const products = JSON.parse(localStorage.getItem('supplierProducts') || '[]');
-    const dropdown = document.querySelector('.quick-update-form select');
-    
-    if (!dropdown) return;
-    
-    // Clear existing options (keep the first "Choose product..." option)
-    while (dropdown.children.length > 1) {
-        dropdown.removeChild(dropdown.lastChild);
-    }
-    
-    // Add products to dropdown
-    products.forEach(product => {
-        const option = document.createElement('option');
-        option.value = product.sku;
-        option.textContent = `${product.name} (${product.sku})`;
-        dropdown.appendChild(option);
-    });
-}
+                    <!-- Quick Stock Update -->
+                    <div class="dashboard-card-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 2rem;">
+                        <div class="card-header-light" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #E2E8F0;">
+                            <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
+                                <i class="fas fa-bolt" style="color: var(--primary);"></i> Quick Stock Update
+                            </h3>
+                        </div>
                         
                         <div class="quick-update-form">
                             <div class="form-group" style="margin-bottom: 1rem;">
                                 <label style="display: block; margin-bottom: 0.5rem; color: #374151; font-weight: 500;">Select Product</label>
-                                <select style="width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1rem;">
+                                <select id="quickUpdateSelect" style="width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1rem;">
                                     <option value="">Choose product...</option>
                                     <option value="TP-4PLY-001">Toilet Paper (4-ply)</option>
                                     <option value="BT-2PLY-001">Bath Tissue (2-ply)</option>
@@ -270,7 +258,7 @@ function updateQuickStockDropdown() {
                             
                             <div class="form-group" style="margin-bottom: 1rem;">
                                 <label style="display: block; margin-bottom: 0.5rem; color: #374151; font-weight: 500;">New Stock Level</label>
-                                <input type="number" placeholder="Enter quantity" style="width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1rem;">
+                                <input type="number" id="quickUpdateQuantity" placeholder="Enter quantity" style="width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1rem;">
                             </div>
                             
                             <button class="btn btn-primary" style="width: 100%;" onclick="quickUpdateStock()">
@@ -290,19 +278,19 @@ function updateQuickStockDropdown() {
                             <div style="display: flex; flex-direction: column; gap: 1rem;">
                                 <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #F1F5F9;">
                                     <span style="color: #64748B;">Total Products:</span>
-                                    <strong style="color: #1E293B;">24</strong>
+                                    <strong style="color: #1E293B;" id="summaryTotal">24</strong>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #F1F5F9;">
                                     <span style="color: #64748B;">In Stock Items:</span>
-                                    <strong style="color: var(--secondary);">17</strong>
+                                    <strong style="color: var(--secondary);" id="summaryInStock">17</strong>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #F1F5F9;">
                                     <span style="color: #64748B;">Low Stock Items:</span>
-                                    <strong style="color: var(--accent);">5</strong>
+                                    <strong style="color: var(--accent);" id="summaryLowStock">5</strong>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0;">
                                     <span style="color: #64748B;">Out of Stock:</span>
-                                    <strong style="color: #ef4444;">2</strong>
+                                    <strong style="color: #ef4444;" id="summaryOutOfStock">2</strong>
                                 </div>
                             </div>
                         </div>
@@ -376,25 +364,23 @@ function updateQuickStockDropdown() {
                         <div style="display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 1rem; align-items: end; margin-bottom: 1rem;">
                             <div>
                                 <label style="display: block; margin-bottom: 0.5rem; color: #374151; font-weight: 500;">Product</label>
-                                <select style="width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1rem;">
+                                <select id="bulkUpdateSelect" style="width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1rem;">
                                     <option value="">Select product...</option>
                                     <option value="TP-4PLY-001">Toilet Paper (4-ply)</option>
                                     <option value="BT-2PLY-001">Bath Tissue (2-ply)</option>
                                     <option value="GS-200ML-001">Guest Shampoo (200ml)</option>
-                                    <option value="GS-CND-001">Guest Conditioner</option>
-                                    <option value="HB-SOP-001">Hand Bar Soap</option>
                                 </select>
                             </div>
                             <div>
                                 <label style="display: block; margin-bottom: 0.5rem; color: #374151; font-weight: 500;">Current Stock</label>
-                                <input type="text" value="150 cartons" readonly style="width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1rem; background: #F8FAFC;">
+                                <input type="text" id="bulkCurrentStock" value="150 cartons" readonly style="width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1rem; background: #F8FAFC;">
                             </div>
                             <div>
                                 <label style="display: block; margin-bottom: 0.5rem; color: #374151; font-weight: 500;">New Stock</label>
-                                <input type="number" placeholder="Enter quantity" style="width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1rem;">
+                                <input type="number" id="bulkNewStock" placeholder="Enter quantity" style="width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1rem;">
                             </div>
                             <div>
-                                <button class="btn btn-primary" style="white-space: nowrap;">
+                                <button class="btn btn-primary" onclick="addToBulkQueue()" style="white-space: nowrap;">
                                     <i class="fas fa-plus"></i> Add
                                 </button>
                             </div>
@@ -405,27 +391,44 @@ function updateQuickStockDropdown() {
                 <!-- Update Queue -->
                 <div class="update-queue" style="margin-bottom: 2rem;">
                     <h4 style="color: #1E293B; margin-bottom: 1rem;">Pending Updates</h4>
-                    <div class="queue-list">
-                        <div class="queue-item" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #F8FAFC; border-radius: 8px; margin-bottom: 0.5rem;">
-                            <div>
-                                <strong style="color: #1E293B;">Toilet Paper (4-ply)</strong>
-                                <div style="color: #64748B; font-size: 0.9rem;">150 → 200 cartons</div>
+                    <div class="queue-list" id="bulkQueueList">
+                        <!-- Queue items will be added here dynamically -->
+                    </div>
+                </div>
+
+                <!-- Import/Export Section -->
+                <div class="import-export-section">
+                    <h3 style="color: #1E293B; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-file-export"></i> Import & Export
+                    </h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div>
+                            <h4 style="color: #1E293B; margin-bottom: 1rem;">Export Data</h4>
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <button class="btn btn-outline" style="width: 100%; justify-content: center;">
+                                    <i class="fas fa-download"></i> Export Inventory (CSV)
+                                </button>
+                                <button class="btn btn-outline" style="width: 100%; justify-content: center;">
+                                    <i class="fas fa-file-pdf"></i> Export Stock Report
+                                </button>
                             </div>
-                            <button class="btn-icon" style="color: #ef4444;">
-                                <i class="fas fa-trash"></i>
-                            </button>
                         </div>
-                        <div class="queue-item" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #F8FAFC; border-radius: 8px; margin-bottom: 0.5rem;">
-                            <div>
-                                <strong style="color: #1E293B;">Guest Shampoo (200ml)</strong>
-                                <div style="color: #64748B; font-size: 0.9rem;">0 → 150 bottles</div>
+                        
+                        <div>
+                            <h4 style="color: #1E293B; margin-bottom: 1rem;">Import Updates</h4>
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <button class="btn btn-outline" style="width: 100%; justify-content: center;">
+                                    <i class="fas fa-upload"></i> Import Stock Update
+                                </button>
+                                <button class="btn btn-outline" style="width: 100%; justify-content: center;">
+                                    <i class="fas fa-file-excel"></i> Download Template
+                                </button>
                             </div>
-                            <button class="btn-icon" style="color: #ef4444;">
-                                <i class="fas fa-trash"></i>
-                            </button>
                         </div>
                     </div>
                 </div>
+            </div>
             
             <div class="modal-footer" style="padding: 1rem 2rem 2rem; border-top: 1px solid #E2E8F0; display: flex; justify-content: flex-end; gap: 1rem;">
                 <button class="btn btn-outline" onclick="closeInventoryModal()">
@@ -442,6 +445,7 @@ function updateQuickStockDropdown() {
         // Inventory Management Functions
         function openInventoryModal() {
             document.getElementById('inventoryModal').style.display = 'flex';
+            updateBulkUpdateDropdown();
         }
 
         function closeInventoryModal() {
@@ -455,8 +459,7 @@ function updateQuickStockDropdown() {
         }
 
         function addNewProduct() {
-            alert('Opening new product form...');
-            // In real implementation, this would open a product creation form
+            window.location.href = 'add-product.html';
         }
 
         function editProduct(sku) {
@@ -471,8 +474,16 @@ function updateQuickStockDropdown() {
         }
 
         function quickUpdateStock() {
-            alert('Quick stock update submitted...');
-            // In real implementation, this would update the stock via AJAX
+            const productSelect = document.getElementById('quickUpdateSelect');
+            const quantityInput = document.getElementById('quickUpdateQuantity');
+            
+            if (productSelect.value && quantityInput.value) {
+                alert(`Quick stock update: ${productSelect.value} → ${quantityInput.value}`);
+                // In real implementation, this would update the stock via AJAX
+                quantityInput.value = '';
+            } else {
+                alert('Please select a product and enter quantity');
+            }
         }
 
         function viewAnalytics() {
@@ -496,194 +507,4 @@ function updateQuickStockDropdown() {
                     this.style.transform = 'translateY(-5px)';
                 });
                 card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                });
-            });
-
-            // Table row hover
-            const tableRows = document.querySelectorAll('.inventory-table tbody tr');
-            tableRows.forEach(row => {
-                row.addEventListener('mouseenter', function() {
-                    this.style.backgroundColor = '#F8FAFC';
-                });
-                row.addEventListener('mouseleave', function() {
-                    this.style.backgroundColor = '';
-                });
-            });
-        });
-    </script>
-
-    <style>
-        /* Additional styles for the inventory management system */
-        .inventory-table-container {
-            overflow-x: auto;
-        }
-        
-        .inventory-table {
-            min-width: 600px;
-        }
-        
-        .inventory-table tbody tr:hover {
-            background-color: #F8FAFC;
-        }
-        
-        .stock-status.in-stock {
-            background: var(--secondary) !important;
-            color: white !important;
-        }
-        
-        .stock-status.low-stock {
-            background: var(--accent) !important;
-            color: white !important;
-        }
-        
-        .stock-status.out-of-stock {
-            background: #ef4444 !important;
-            color: white !important;
-        }
-        
-        .btn-icon {
-            background: none;
-            border: none;
-            color: var(--gray);
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: var(--radius-sm);
-            transition: var(--transition);
-        }
-        
-        .btn-icon:hover {
-            background: var(--light);
-            color: var(--primary);
-        }
-        
-        @media (max-width: 768px) {
-            .inventory-table {
-                font-size: 0.875rem;
-            }
-            
-            .modal-content {
-                width: 95%;
-                margin: 1rem;
-            }
-            
-            .dashboard-main-light {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</body>
-</html>
-<!-- In supplier-dashboard.html -->
-<button class="btn btn-primary btn-small" onclick="window.location.href='add-product.html'">
-    <i class="fas fa-plus"></i> Add Product
-</button>
-<div class="nav-menu">
-    <a href="#overview" class="nav-link active"><i class="fas fa-chart-pie"></i> Overview</a>
-    <a href="#orders" class="nav-link"><i class="fas fa-shopping-cart"></i> Orders</a>
-    <a href="#inventory" class="nav-link"><i class="fas fa-boxes"></i> Inventory</a>
-    <a href="add-product.html" class="nav-link"><i class="fas fa-cube"></i> Products</a>
-    <a href="#performance" class="nav-link"><i class="fas fa-trophy"></i> Performance</a>
-</div>
-// Load products from localStorage and update the inventory table
-function loadProductsIntoTable() {
-    const products = JSON.parse(localStorage.getItem('supplierProducts') || '[]');
-    const inventoryTable = document.querySelector('.inventory-table tbody');
-    
-    if (!inventoryTable) return;
-    
-    // Clear existing rows (except the demo ones if you want to keep them)
-    // Or replace everything with: inventoryTable.innerHTML = '';
-    
-    // Add each product to the table
-    products.forEach(product => {
-        const stockStatus = getStockStatus(product.currentStock, product.reorderLevel);
-        const statusClass = getStatusClass(stockStatus);
-        
-        const row = document.createElement('tr');
-        row.style.borderBottom = '1px solid #F1F5F9';
-        row.innerHTML = `
-            <td style="padding: 1rem;">
-                <strong style="color: #1E293B;">${product.name}</strong>
-                <div style="color: #64748B; font-size: 0.9rem;">SKU: ${product.sku}</div>
-            </td>
-            <td style="padding: 1rem; text-align: center;">
-                <span style="font-weight: 600; color: #1E293B;">${product.currentStock} ${product.unit}</span>
-            </td>
-            <td style="padding: 1rem; text-align: center;">
-                <span style="color: #64748B;">${product.reorderLevel} ${product.unit}</span>
-            </td>
-            <td style="padding: 1rem; text-align: center;">
-                <span class="stock-status ${statusClass}" style="background: ${getStatusColor(stockStatus)}; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">
-                    ${stockStatus}
-                </span>
-            </td>
-            <td style="padding: 1rem; text-align: center;">
-                <button class="btn-icon" onclick="editProduct('${product.sku}')" title="Edit">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="btn-icon" onclick="updateStock('${product.sku}')" title="Update Stock">
-                    <i class="fas fa-sync"></i>
-                </button>
-            </td>
-        `;
-        
-        // Add to the top of the table (or wherever you prefer)
-        inventoryTable.appendChild(row);
-    });
-}
-
-function getStockStatus(currentStock, reorderLevel) {
-    if (currentStock === 0) return 'Out of Stock';
-    if (currentStock <= reorderLevel) return 'Low Stock';
-    return 'In Stock';
-}
-
-function getStatusClass(status) {
-    return status.toLowerCase().replace(' ', '-');
-}
-
-function getStatusColor(status) {
-    switch(status) {
-        case 'In Stock': return 'var(--secondary)';
-        case 'Low Stock': return 'var(--accent)';
-        case 'Out of Stock': return '#ef4444';
-        default: return '#64748B';
-    }
-}
-
-// Update stats counters
-function updateStatsCounters() {
-    const products = JSON.parse(localStorage.getItem('supplierProducts') || '[]');
-    
-    // Update total products count
-    const totalProductsElement = document.querySelector('.stat-card-light:nth-child(1) .stat-number');
-    if (totalProductsElement) {
-        totalProductsElement.textContent = products.length;
-    }
-    
-    // You can add similar updates for low stock and out of stock counters
-    let lowStockCount = 0;
-    let outOfStockCount = 0;
-    
-    products.forEach(product => {
-        const status = getStockStatus(product.currentStock, product.reorderLevel);
-        if (status === 'Low Stock') lowStockCount++;
-        if (status === 'Out of Stock') outOfStockCount++;
-    });
-    
-    const lowStockElement = document.querySelector('.stat-card-light:nth-child(2) .stat-number');
-    const outOfStockElement = document.querySelector('.stat-card-light:nth-child(3) .stat-number');
-    
-    if (lowStockElement) lowStockElement.textContent = lowStockCount;
-    if (outOfStockElement) outOfStockElement.textContent = outOfStockCount;
-}
-
-// Call these functions when the dashboard loads
-document.addEventListener('DOMContentLoaded', function() {
-    loadProductsIntoTable();
-    updateStatsCounters();
-});
-
-
-
+                    this.style
