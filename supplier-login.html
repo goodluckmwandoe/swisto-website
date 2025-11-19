@@ -1,23 +1,203 @@
-document.getElementById('supplierLoginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const email = document.getElementById('supplierEmail').value;
-    const password = document.getElementById('supplierPassword').value;
-    
-    if (email && password) {
-        console.log('Supplier login attempt:', { email, password });
-        
-        // For demo purposes - redirect to dashboard
-        if (email === 'demo@coastalsupplies.com' && password === 'demopassword123') {
-            // Store login state in localStorage
-            localStorage.setItem('supplierLoggedIn', 'true');
-            localStorage.setItem('supplierName', 'Nakuru Supplies Ltd');
-            localStorage.setItem('supplierEmail', email);
-            
-            alert('Login successful! Redirecting to supplier dashboard...');
-            window.location.href = 'supplier-dashboard.html';
-        } else {
-            alert('Invalid credentials. For demo, use the provided demo credentials.');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Login - SWISTO</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+            display: none;
         }
-    }
-});
+        
+        .notification.success {
+            background: var(--secondary);
+            display: block;
+        }
+        
+        .notification.error {
+            background: var(--danger);
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .btn-loading {
+            position: relative;
+            color: transparent !important;
+        }
+        
+        .btn-loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin-left: -10px;
+            margin-top: -10px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="swisto-logo.png" alt="SWISTO Kenya">
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="supplier-register.html" class="nav-link">Join as Supplier</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Supplier Login Section -->
+    <section class="auth-section">
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <h1>Supplier Login</h1>
+                    <p>Access your SWISTO supplier dashboard</p>
+                </div>
+
+                <!-- Notification Container -->
+                <div id="notification" class="notification"></div>
+
+                <form class="auth-form" id="supplierLoginForm">
+                    <div class="form-group">
+                        <label for="supplierEmail">Email Address *</label>
+                        <input type="email" id="supplierEmail" name="supplierEmail" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="supplierPassword">Password *</label>
+                        <input type="password" id="supplierPassword" name="supplierPassword" required>
+                        <div class="password-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="rememberSupplier"> Remember me
+                            </label>
+                            <a href="forgot-password.html" class="forgot-password">Forgot Password?</a>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i> Login to Supplier Dashboard
+                    </button>
+
+                    <div class="demo-credentials">
+                        <h4>Demo Access (For Testing):</h4>
+                        <p>Email: <code>demo@coastalsupplies.com</code></p>
+                        <p>Password: <code>demopassword123</code></p>
+                        <button type="button" class="btn btn-outline btn-small" onclick="fillSupplierDemoCredentials()">
+                            Fill Demo Credentials
+                        </button>
+                    </div>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Not registered yet? <a href="supplier-register.html">Join as a supplier</a></p>
+                    <p>Are you a hotel? <a href="hotel-login.html">Hotel login here</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification ' + type;
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        document.getElementById('supplierLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('supplierEmail').value;
+            const password = document.getElementById('supplierPassword').value;
+            const loginBtn = document.getElementById('loginBtn');
+            
+            if (email && password) {
+                // Show loading state
+                const originalText = loginBtn.innerHTML;
+                loginBtn.innerHTML = 'Logging in...';
+                loginBtn.classList.add('btn-loading');
+                loginBtn.disabled = true;
+                
+                // Simulate API call delay
+                setTimeout(() => {
+                    // For demo purposes
+                    if (email === 'demo@coastalsupplies.com' && password === 'demopassword123') {
+                        // Store login state in localStorage
+                        localStorage.setItem('supplierLoggedIn', 'true');
+                        localStorage.setItem('supplierName', 'Nakuru Supplies Ltd');
+                        localStorage.setItem('supplierEmail', email);
+                        
+                        showNotification('Login successful! Redirecting...', 'success');
+                        
+                        setTimeout(() => {
+                            window.location.href = 'supplier-dashboard.html';
+                        }, 1000);
+                    } else {
+                        showNotification('Invalid credentials. Please try again.', 'error');
+                        loginBtn.innerHTML = originalText;
+                        loginBtn.classList.remove('btn-loading');
+                        loginBtn.disabled = false;
+                    }
+                }, 1500);
+            } else {
+                showNotification('Please fill in all fields.', 'error');
+            }
+        });
+
+        function fillSupplierDemoCredentials() {
+            document.getElementById('supplierEmail').value = 'demo@coastalsupplies.com';
+            document.getElementById('supplierPassword').value = 'demopassword123';
+            document.getElementById('rememberSupplier').checked = true;
+        }
+
+        // Check if already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('supplierLoggedIn');
+            if (isLoggedIn) {
+                window.location.href = 'supplier-dashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>
