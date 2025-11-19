@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Order - SWISTO Hotel Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .ordering-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            margin: 2rem 0;
+        }
+
+        .supplier-selection {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #F8FAFC;
+            border-radius: 10px;
+        }
+
+        .supplier-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .supplier-card.selected {
+            border-color: var(--primary);
+            background: #FEF2F2;
+        }
+
+        .supplier-info h4 {
+            margin: 0 0 0.5rem 0;
+            color: #1E293B;
+        }
+
+        .supplier-rating {
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .product-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: #1E293B;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .quantity-btn {
+            width: 35px;
+            height: 35px;
+            border: 1px solid #D1D5DB;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+            padding: 0.5rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 5px;
+        }
+
+        .cart-summary {
+            background: #F8FAFC;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1E293B;
+        }
+
+        .quote-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            
+            body {
+                background: white !important;
+            }
+            
+            .ordering-container {
+                box-shadow: none !important;
+                padding: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar no-print">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="swisto-logo.png" alt="SWISTO Kenya">
+                <span style="margin-left: 10px; font-weight: 600; color: #333;">Hotel Portal</span>
+            </div>
+            <div class="nav-menu">
+                <a href="hotel-dashboard.html" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="hotel-ordering.html" class="nav-link active"><i class="fas fa-shopping-cart"></i> Place Order</a>
+                <a href="hotel-orders.html" class="nav-link"><i class="fas fa-list"></i> My Orders</a>
+                <a href="#suppliers" class="nav-link"><i class="fas fa-truck"></i> Suppliers</a>
+            </div>
+            <div class="nav-user">
+                <span class="user-name">Serena Hotel</span>
+                <div class="user-avatar" style="background: var(--primary); color: white;">
+                    <i class="fas fa-hotel"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <section class="dashboard-content" style="padding: 120px 0 80px; margin-top: 80px;">
+        <div class="container">
+            <div class="ordering-container">
+                <div class="orders-header">
+                    <div>
+                        <h1 style="color: #1E293B; margin-bottom: 0.5rem;">Place New Order</h1>
+                        <p style="color: #64748B;">Select supplier and items to generate official SWISTO quote</p>
+                    </div>
+                </div>
+
+                <!-- Supplier Selection -->
+                <div class="supplier-selection">
+                    <h3 style="color: #1E293B; margin-bottom: 1rem;">Select Supplier</h3>
+                    <div id="suppliersList">
+                        <div class="supplier-card" onclick="selectSupplier('nakuru')">
+                            <div class="supplier-info">
+                                <h4>Nakuru Supplies Ltd</h4>
+                                <div class="supplier-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    4.8 (124 reviews)
+                                </div>
+                                <p style="color: #64748B; margin: 0.5rem 0 0 0;">Specializes in toiletries and cleaning supplies</p>
+                            </div>
+                            <div class="supplier-actions">
+                                <i class="fas fa-check-circle" style="color: var(--secondary); font-size: 1.5rem;"></i>
+                            </div>
+                        </div>
+
+                        <div class="supplier-card" onclick="selectSupplier('coastal')">
+                            <div class="supplier-info">
+                                <h4>Coastal Premium Supplies</h4>
+                                <div class="supplier-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    5.0 (89 reviews)
+                                </div>
+                                <p style="color: #64748B; margin: 0.5rem 0 0 0;">Premium hotel amenities and linens</p>
+                            </div>
+                            <div class="supplier-actions">
+                                <i class="fas fa-check-circle" style="color: #E5E7EB; font-size: 1.5rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div id="productsSection" style="display: none;">
+                    <h3 style="color: #1E293B; margin-bottom: 1rem;">Available Products</h3>
+                    <div class="products-grid" id="productsGrid">
+                        <!-- Products will be loaded dynamically -->
+                    </div>
+
+                    <!-- Cart Summary -->
+                    <div class="cart-summary">
+                        <h3 style="color: #1E293B; margin-bottom: 1rem;">Order Summary</h3>
+                        <div id="cartItems">
+                            <!-- Cart items will be loaded here -->
+                        </div>
+                        <div class="cart-total">
+                            <span>Total Amount:</span>
+                            <span id="totalAmount">KES 0</span>
+                        </div>
+
+                        <div class="quote-actions no-print">
+                            <button class="btn btn-outline" onclick="generateQuote()">
+                                <i class="fas fa-file-pdf"></i> Generate Quote
+                            </button>
+                            <button class="btn btn-primary" onclick="placeOrder()" id="placeOrderBtn" disabled>
+                                <i class="fas fa-paper-plane"></i> Place Order & Send PO
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Printable Quote Section -->
+                <div id="printableQuote" style="display: none;">
+                    <!-- This will be populated with the quote content -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        let selectedSupplier = null;
+        let cart = [];
+        const suppliers = {
+            'nakuru': {
+                name: 'Nakuru Supplies Ltd',
+                address: 'Nakuru Industrial Area, Nakuru',
+                phone: '+254 700 000 000',
+                email: 'orders@nakurusupplies.co.ke',
+                products: [
+                    { id: 1, name: 'Toilet Paper (4-ply)', price: 2500, unit: 'carton', category: 'Toiletries' },
+                    { id: 2, name: 'Bath Tissue (2-ply)', price: 1800, unit: 'carton', category: 'Toiletries' },
+                    { id: 3, name: 'Guest Shampoo (200ml)', price: 350, unit: 'bottle', category: 'Amenities' },
+                    { id: 4, name: 'Hand Soap', price: 450, unit: 'piece', category: 'Amenities' },
+                    { id: 5, name: 'Bath Towels', price: 1200, unit: 'piece', category: 'Linens' }
+                ]
+            },
+            'coastal': {
+                name: 'Coastal Premium Supplies',
+                address: 'Mombasa Road, Nairobi',
+                phone: '+254 711 000 000',
+                email: 'sales@coastalsupplies.co.ke',
+                products: [
+                    { id: 6, name: 'Premium Toilet Paper', price: 3200, unit: 'carton', category: 'Toiletries' },
+                    { id: 7, name: 'Luxury Bath Robes', price: 2800, unit: 'piece', category: 'Linens' },
+                    { id: 8, name: 'Designer Shampoo', price: 650, unit: 'bottle', category: 'Amenities' },
+                    { id: 9, name: 'Spa Soap', price: 380, unit: 'piece', category: 'Amenities' }
+                ]
+            }
+        };
+
+        function selectSupplier(supplierId) {
+            selectedSupplier = supplierId;
+            
+            // Update UI
+            document.querySelectorAll('.supplier-card').forEach(card => {
+                card.classList.remove('selected');
+                card.querySelector('.fa-check-circle').style.color = '#E5E7EB';
+            });
+            
+            event.currentTarget.classList.add('selected');
+            event.currentTarget.querySelector('.fa-check-circle').style.color = 'var(--secondary)';
+            
+            // Show products section
+            document.getElementById('productsSection').style.display = 'block';
+            
+            // Load products
+            loadProducts(supplierId);
+        }
+
+        function loadProducts(supplierId) {
+            const productsGrid = document.getElementById('productsGrid');
+            productsGrid.innerHTML = '';
+            
+            const supplierProducts = suppliers[supplierId].products;
+            
+            supplierProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <h4>${product.name}</h4>
+                    <div class="product-price">KES ${product.price}/${product.unit}</div>
+                    <p style="color: #64748B; font-size: 0.9rem; margin-bottom: 1rem;">${product.category}</p>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="decreaseQuantity(${product.id})">-</button>
+                        <input type="number" id="qty-${product.id}" class="quantity-input" value="0" min="0" onchange="updateQuantity(${product.id})">
+                        <button class="quantity-btn" onclick="increaseQuantity(${product.id})">+</button>
+                    </div>
+                    <button class="btn btn-outline btn-small" onclick="addToCart(${product.id})" style="width: 100%;">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+                `;
+                productsGrid.appendChild(productCard);
+            });
+        }
+
+        function increaseQuantity(productId) {
+            const input = document.getElementById(`qty-${productId}`);
+            input.value = parseInt(input.value) + 1;
+        }
+
+        function decreaseQuantity(productId) {
+            const input = document.getElementById(`qty-${productId}`);
+            if (parseInt(input.value) > 0) {
+                input.value = parseInt(input.value) - 1;
+            }
+        }
+
+        function updateQuantity(productId) {
+            const input = document.getElementById(`qty-${productId}`);
+            if (parseInt(input.value) < 0) {
+                input.value = 0;
+            }
+        }
+
+        function addToCart(productId) {
+            const supplier = suppliers[selectedSupplier];
+            const product = supplier.products.find(p => p.id === productId);
+            const quantity = parseInt(document.getElementById(`qty-${productId}`).value);
+            
+            if (quantity <= 0) {
+                alert('Please enter a quantity greater than 0');
+                return;
+            }
+            
+            // Check if product already in cart
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cart.push({
+                    id: productId,
+                    name: product.name,
+                    price: product.price,
+                    unit: product.unit,
+                    quantity: quantity
+                });
+            }
+            
+            updateCartDisplay();
+            document.getElementById(`qty-${productId}`).value = 0;
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const totalAmount = document.getElementById('totalAmount');
+            const placeOrderBtn = document.getElementById('placeOrderBtn');
+            
+            cartItems.innerHTML = '';
+            let total = 0;
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="color: #64748B; text-align: center;">No items in cart</p>';
+                placeOrderBtn.disabled = true;
+            } else {
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div>
+                            <strong>${item.name}</strong>
+                            <div style="color: #64748B; font-size: 0.9rem;">
+                                ${item.quantity} ${item.unit} × KES ${item.price}
+                            </div>
+                        </div>
+                        <div>
+                            <strong>KES ${itemTotal.toLocaleString()}</strong>
+                            <button class="btn-icon" onclick="removeFromCart(${item.id})" style="margin-left: 1rem;">
+                                <i class="fas fa-trash" style="color: #ef4444;"></i>
+                            </button>
+                        </div>
+                    `;
+                    cartItems.appendChild(cartItem);
+                });
+                
+                placeOrderBtn.disabled = false;
+            }
+            
+            totalAmount.textContent = `KES ${total.toLocaleString()}`;
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartDisplay();
+        }
+
+        function generateQuote() {
+            if (cart.length === 0) {
+                alert('Please add items to cart before generating quote');
+                return;
+            }
+
+            const supplier = suppliers[selectedSupplier];
+            const hotel = {
+                name: 'Serena Hotel',
+                address: 'Diani Beach Road, Kwale',
+                phone: '+254 794 465 650',
+                email: 'procurement@serenahotel.com'
+            };
+
+            const quoteNumber = 'SWISTO-Q-' + Date.now();
+            const quoteDate = new Date().toLocaleDateString();
+            const validUntil = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString();
+            
+            let totalAmount = 0;
+            let itemsHTML = '';
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                totalAmount += itemTotal;
+                itemsHTML += `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>${item.quantity}</td>
+                        <td>${item.unit}</td>
+                        <td>KES ${item.price.toLocaleString()}</td>
+                        <td>KES ${itemTotal.toLocaleString()}</td>
+                    </tr>
+                `;
+            });
+
+            const quoteHTML = `
+                <div style="padding: 2rem; font-family: Arial, sans-serif;">
+                    <!-- Header -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 2px solid var(--primary); padding-bottom: 1rem;">
+                        <div>
+                            <img src="swisto-logo.png" alt="SWISTO Kenya" style="height: 50px;">
+                            <h1 style="color: var(--primary); margin: 0.5rem 0 0 0; font-size: 1.5rem;">SWISTO OFFICIAL QUOTE</h1>
+                        </div>
+                        <div style="text-align: right;">
+                            <h2 style="margin: 0; color: #1E293B;">Quote #${quoteNumber}</h2>
+                            <p style="margin: 0.25rem 0; color: #64748B;">Date: ${quoteDate}</p>
+                            <p style="margin: 0; color: #64748B;">Valid Until: ${validUntil}</p>
+                        </div>
+                    </div>
+
+                    <!-- Parties -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                        <div>
+                            <h3 style="color: #1E293B; margin-bottom: 1rem;">Supplier</h3>
+                            <p><strong>${supplier.name}</strong></p>
+                            <p>${supplier.address}</p>
+                            <p>Phone: ${supplier.phone}</p>
+                            <p>Email: ${supplier.email}</p>
+                        </div>
+                        <div>
+                            <h3 style="color: #1E293B; margin-bottom: 1rem;">Hotel</h3>
+                            <p><strong>${hotel.name}</strong></p>
+                            <p>${hotel.address}</p>
+                            <p>Phone: ${hotel.phone}</p>
+                            <p>Email: ${hotel.email}</p>
+                        </div>
+                    </div>
+
+                    <!-- Quote Items -->
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 2rem;">
+                        <thead>
+                            <tr style="background: #F8FAFC;">
+                                <th style="padding: 1rem; text-align: left; border-bottom: 1px solid #E2E8F0;">Item Description</th>
+                                <th style="padding: 1rem; text-align: center; border-bottom: 1px solid #E2E8F0;">Quantity</th>
+                                <th style="padding: 1rem; text-align: center; border-bottom: 1px solid #E2E8F0;">Unit</th>
+                                <th style="padding: 1rem; text-align: right; border-bottom: 1px solid #E2E8F0;">Unit Price</th>
+                                <th style="padding: 1rem; text-align: right; border-bottom: 1px solid #E2E8F0;">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${itemsHTML}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" style="padding: 1rem; text-align: right; font-weight: bold;">Total Amount:</td>
+                                <td style="padding: 1rem; text-align: right; font-weight: bold; border-top: 2px solid #E2E8F0;">
+                                    KES ${totalAmount.toLocaleString()}
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <!-- Terms and Conditions -->
+                    <div style="margin-bottom: 2rem; padding: 1rem; background: #F8FAFC; border-radius: 5px;">
+                        <h4 style="color: #1E293B; margin-bottom: 0.5rem;">Terms & Conditions</h4>
+                        <p style="margin: 0.25rem 0; font-size: 0.9rem;">• Prices are valid for 7 days from quote date</p>
+                        <p style="margin: 0.25rem 0; font-size: 0.9rem;">• Delivery within 24 hours for emergency orders</p>
+                        <p style="margin: 0.25rem 0; font-size: 0.9rem;">• Payment terms: Net 15 days</p>
+                        <p style="margin: 0.25rem 0; font-size: 0.9rem;">• All prices inclusive of VAT where applicable</p>
+                    </div>
+
+                    <!-- Footer -->
+                    <div style="border-top: 2px solid var(--primary); padding-top: 1rem; text-align: center;">
+                        <p style="margin: 0; color: #64748B;">
+                            SWISTO Kenya - Emergency Supply Platform for Hospitality Industry<br>
+                            Email: henrymwandoe004@gmail.com | Phone: +254 794 465 650
+                        </p>
+                    </div>
+                </div>
+            `;
+
+            // Show printable quote
+            const printableQuote = document.getElementById('printableQuote');
+            printableQuote.innerHTML = quoteHTML;
+            printableQuote.style.display = 'block';
+
+            // Print the quote
+            window.print();
+
+            // Hide printable quote after printing
+            setTimeout(() => {
+                printableQuote.style.display = 'none';
+            }, 500);
+        }
+
+        function placeOrder() {
+            if (cart.length === 0) {
+                alert('Please add items to cart before placing order');
+                return;
+            }
+
+            const supplier = suppliers[selectedSupplier];
+            const hotel = {
+                name: 'Serena Hotel',
+                address: 'Diani Beach Road, Kwale',
+                phone: '+254 794 465 650'
+            };
+
+            // Generate PO Number
+            const poNumber = 'PO-' + Date.now();
+            
+            // Calculate total
+            let totalAmount = 0;
+            cart.forEach(item => {
+                totalAmount += item.price * item.quantity;
+            });
+
+            // Create order object
+            const order = {
+                id: poNumber,
+                hotel: hotel.name,
+                hotelId: 'serena',
+                supplier: supplier.name,
+                supplierId: selectedSupplier,
+                items: [...cart],
+                totalAmount: totalAmount,
+                orderDate: new Date().toISOString(),
+                deliveryDate: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
+                urgency: 'normal',
+                status: 'pending',
+                contact: hotel.phone,
+                tracking: [
+                    { status: 'pending', message: 'Purchase Order generated by hotel', timestamp: new Date().toISOString() }
+                ]
+            };
+
+            // Save to localStorage (simulating database)
+            let orders = JSON.parse(localStorage.getItem('supplierOrders') || '[]');
+            orders.push(order);
+            localStorage.setItem('supplierOrders', JSON.stringify(orders));
+
+            // Generate and print PO
+            generatePurchaseOrder(order, supplier, hotel);
+
+            // Reset cart
+            cart = [];
+            updateCartDisplay();
+
+            alert(`Order ${poNumber} placed successfully! Purchase Order has been sent to ${supplier.name}`);
+        }
+
+        function generatePurchaseOrder(order, supplier, hotel) {
+            let itemsHTML = '';
+            order.items.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                itemsHTML += `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>${item.quantity}</td>
+                        <td>${item.unit}</td>
+                        <td>KES ${item.price.toLocaleString()}</td>
+                        <td>KES ${itemTotal.toLocaleString()}</td>
+                    </tr>
+                `;
+            });
+
+            const poHTML = `
+                <div style="padding: 2rem; font-family: Arial, sans-serif;">
+                    <!-- Header -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 2px solid var(--primary); padding-bottom: 1rem;">
+                        <div>
+                            <h1 style="color: var(--primary); margin: 0 0 0.5rem 0; font-size: 1.5rem;">PURCHASE ORDER</h1>
+                            <h2 style="margin: 0; color: #1E293B;">${hotel.name}</h2>
+                        </div>
+                        <div style="text-align: right;">
+                            <h2 style="margin: 0; color: #1E293B;">PO #${order.id}</h2>
+                            <p style="margin: 0.25rem 0; color: #64748B;">Date: ${new Date().toLocaleDateString()}</p>
+                            <p style="margin: 0; color: #64748B;">Delivery Date: ${new Date(order.deliveryDate).toLocaleDateString()}</p>
+                        </div>
+                    </div>
+
+                    <!-- Parties -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                        <div>
+                            <h3 style="color: #1E293B; margin-bottom: 1rem;">Supplier</h3>
+                            <p><strong>${supplier.name}</strong></p>
+                            <p>${supplier.address}</p>
+                            <p>Phone: ${supplier.phone}</p>
+                            <p>Email: ${supplier.email}</p>
+                        </div>
+                        <div>
+                            <h3 style="color: #1E293B; margin-bottom: 1rem;">Ship To</h3>
+                            <p><strong>${hotel.name}</strong></p>
+                            <p>${hotel.address}</p>
+                            <p>Phone: ${hotel.phone}</p>
+                            <p>Attn: Procurement Department</p>
+                        </div>
+                    </div>
+
+                    <!-- PO Items -->
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 2rem;">
+                        <thead>
+                            <tr style="background: #F8FAFC;">
+                                <th style="padding: 1rem; text-align: left; border-bottom: 1px solid #E2E8F0;">Item Description</th>
+                                <th style="padding: 1rem; text-align: center; border-bottom: 1px solid #E2E8F0;">Quantity</th>
+                                <th style="padding: 1rem; text-align: center; border-bottom: 1px solid #E2E8F0;">Unit</th>
+                                <th style="padding: 1rem; text-align: right; border-bottom: 1px solid #E2E8F0;">Unit Price</th>
+                                <th style="padding: 1rem; text-align: right; border-bottom: 1px solid #E2E8F0;">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${itemsHTML}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" style="padding: 1rem; text-align: right; font-weight: bold;">Total Amount:</td>
+                                <td style="padding: 1rem; text-align: right; font-weight: bold; border-top: 2px solid #E2E8F0;">
+                                    KES ${order.totalAmount.toLocaleString()}
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <!-- Authorization -->
+                    <div style="margin-top: 3rem;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                            <div>
+                                <p style="border-top: 1px solid #000; padding-top: 2rem; width: 200px;">
+                                    Authorized Signature
+                                </p>
+                                <p style="margin: 0.5rem 0 0 0;">Name: ___________________</p>
+                                <p style="margin: 0;">Title: Procurement Manager</p>
+                                <p style="margin: 0;">Date: ___________________</p>
+                            </div>
+                            <div>
+                                <p style="border-top: 1px solid #000; padding-top: 2rem; width: 200px;">
+                                    Supplier Acknowledgement
+                                </p>
+                                <p style="margin: 0.5rem 0 0 0;">Name: ___________________</p>
+                                <p style="margin: 0;">Title: ___________________</p>
+                                <p style="margin: 0;">Date: ___________________</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div style="border-top: 2px solid var(--primary); padding-top: 1rem; text-align: center; margin-top: 2rem;">
+                        <p style="margin: 0; color: #64748B;">
+                            Generated via SWISTO Platform - Emergency Supply Platform for Hospitality Industry<br>
+                            This is an official purchase order. Please deliver goods as specified.
+                        </p>
+                    </div>
+                </div>
+            `;
+
+            // Create new window for printing PO
+            const poWindow = window.open('', '_blank');
+            poWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Purchase Order ${order.id}</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 0; padding: 2rem; }
+                        @media print { body { padding: 0; } }
+                    </style>
+                </head>
+                <body>${poHTML}</body>
+                </html>
+            `);
+            poWindow.document.close();
+            
+            // Print after a short delay
+            setTimeout(() => {
+                poWindow.print();
+                // poWindow.close(); // Uncomment to auto-close after printing
+            }, 500);
+        }
+    </script>
+</body>
+</html>
