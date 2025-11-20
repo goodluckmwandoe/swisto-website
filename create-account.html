@@ -44,13 +44,13 @@
             border-radius: 20px;
             box-shadow: 0 25px 50px rgba(0,0,0,0.15);
             overflow: hidden;
-            min-height: 700px;
+            height: 600px; /* Fixed height to prevent scrolling */
         }
         
         .register-hero {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
-            padding: 50px;
+            padding: 40px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -77,67 +77,71 @@
         .logo {
             display: flex;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            justify-content: center;
         }
         
         .logo-img {
-            height: 150px;
+            height: 80px;
         }
         
         .register-hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
             line-height: 1.3;
+            text-align: center;
         }
         
         .register-hero p {
-            font-size: 1.2rem;
+            font-size: 1rem;
             opacity: 0.9;
-            margin-bottom: 30px;
-            line-height: 1.6;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            text-align: center;
         }
         
         .hero-features {
             list-style: none;
-            margin-top: 30px;
+            margin-top: 20px;
         }
         
         .hero-features li {
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
-            font-size: 1.1rem;
+            font-size: 0.9rem;
         }
         
         .hero-features i {
             color: var(--secondary);
-            margin-right: 15px;
-            font-size: 1.3rem;
+            margin-right: 10px;
+            font-size: 1rem;
+            min-width: 16px;
         }
         
         .register-container {
-            padding: 50px 40px;
+            padding: 30px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            overflow-y: auto;
-            max-height: 700px;
+            justify-content: flex-start;
+            overflow: hidden;
+            height: 100%;
         }
         
         .progress-steps {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 40px;
+            margin-bottom: 25px;
             position: relative;
         }
         
         .progress-steps:before {
             content: '';
             position: absolute;
-            top: 20px;
+            top: 15px;
             left: 0;
             right: 0;
-            height: 3px;
+            height: 2px;
             background: #e0e0e0;
             z-index: 1;
         }
@@ -151,8 +155,8 @@
         }
         
         .step-number {
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             background: #e0e0e0;
             display: flex;
@@ -160,15 +164,14 @@
             justify-content: center;
             font-weight: 600;
             color: var(--gray);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             transition: var(--transition);
-            font-size: 1.1rem;
+            font-size: 0.9rem;
         }
         
         .step.active .step-number {
             background: var(--primary);
             color: white;
-            transform: scale(1.1);
         }
         
         .step.completed .step-number {
@@ -177,7 +180,7 @@
         }
         
         .step-label {
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             color: var(--gray);
             font-weight: 500;
         }
@@ -189,6 +192,9 @@
         
         .form-step {
             display: none;
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 5px;
         }
         
         .form-step.active {
@@ -197,49 +203,49 @@
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
         .step-header {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         
         .step-header h2 {
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: var(--primary);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .step-header p {
             color: var(--gray);
-            font-size: 1.1rem;
+            font-size: 0.9rem;
         }
         
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 15px;
         }
         
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 15px;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             font-weight: 600;
             color: var(--dark);
-            font-size: 1rem;
+            font-size: 0.85rem;
         }
         
         .form-group input, .form-group select {
             width: 100%;
-            padding: 16px 18px;
+            padding: 12px 14px;
             border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
             transition: var(--transition);
         }
         
@@ -252,21 +258,21 @@
         .form-actions {
             display: flex;
             justify-content: space-between;
-            margin-top: 40px;
-            gap: 20px;
+            margin-top: 25px;
+            gap: 15px;
         }
         
         .btn {
-            padding: 16px 30px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1rem;
+            gap: 8px;
+            font-size: 0.9rem;
         }
         
         .btn-primary {
@@ -279,7 +285,6 @@
         .btn-primary:hover {
             background: var(--secondary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(243, 156, 18, 0.3);
         }
         
         .btn-secondary {
@@ -297,14 +302,14 @@
         .user-type-selector {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 40px;
+            gap: 15px;
+            margin-bottom: 25px;
         }
         
         .user-type-btn {
-            padding: 35px 25px;
-            border: 3px solid #e0e0e0;
-            border-radius: 15px;
+            padding: 20px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
             background: white;
             cursor: pointer;
             transition: var(--transition);
@@ -314,54 +319,52 @@
         .user-type-btn.active {
             border-color: var(--primary);
             background: rgba(26, 82, 118, 0.05);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(26, 82, 118, 0.15);
         }
         
         .user-type-btn:hover {
             border-color: var(--primary);
             background: rgba(26, 82, 118, 0.02);
-            transform: translateY(-2px);
         }
         
         .user-type-btn i {
-            font-size: 3rem;
+            font-size: 2rem;
             color: var(--primary);
-            margin-bottom: 15px;
-        }
-        
-        .user-type-btn h3 {
-            font-size: 1.3rem;
-            color: var(--dark);
             margin-bottom: 10px;
         }
         
+        .user-type-btn h3 {
+            font-size: 1rem;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+        
         .user-type-btn p {
-            font-size: 0.95rem;
+            font-size: 0.8rem;
             color: var(--gray);
-            line-height: 1.5;
+            line-height: 1.4;
         }
         
         .terms {
-            margin-top: 30px;
-            padding: 20px;
+            margin-top: 20px;
+            padding: 15px;
             background: var(--light);
-            border-radius: 10px;
-            font-size: 0.9rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
             color: var(--gray);
         }
         
         .terms label {
             display: flex;
             align-items: flex-start;
-            gap: 12px;
+            gap: 10px;
             cursor: pointer;
             margin: 0;
+            line-height: 1.4;
         }
         
         .terms input[type="checkbox"] {
-            margin-top: 3px;
-            transform: scale(1.2);
+            margin-top: 2px;
+            transform: scale(1.1);
         }
         
         .terms a {
@@ -376,8 +379,8 @@
         
         .login-link {
             text-align: center;
-            margin-top: 30px;
-            padding-top: 25px;
+            margin-top: 20px;
+            padding-top: 15px;
             border-top: 1px solid #e0e0e0;
         }
         
@@ -386,7 +389,7 @@
             text-decoration: none;
             font-weight: 600;
             transition: var(--transition);
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
         
         .login-link a:hover {
@@ -396,33 +399,54 @@
         
         .success-message {
             text-align: center;
-            padding: 50px 30px;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
         }
         
         .success-icon {
-            font-size: 5rem;
+            font-size: 3rem;
             color: var(--success);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         
         .success-message h2 {
             color: var(--primary);
-            margin-bottom: 20px;
-            font-size: 2.2rem;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
         }
         
         .success-message p {
             color: var(--gray);
-            margin-bottom: 25px;
-            font-size: 1.1rem;
-            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        /* Custom scrollbar for form steps */
+        .form-step::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .form-step::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 2px;
+        }
+        
+        .form-step::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 2px;
         }
         
         /* Responsive Design */
         @media (max-width: 768px) {
             .register-wrapper {
                 grid-template-columns: 1fr;
-                max-width: 500px;
+                max-width: 450px;
+                height: auto;
+                min-height: 600px;
             }
             
             .register-hero {
@@ -430,13 +454,13 @@
             }
             
             .register-container {
-                padding: 40px 30px;
+                padding: 25px 20px;
             }
         }
         
         @media (max-width: 480px) {
             .register-container {
-                padding: 30px 20px;
+                padding: 20px 15px;
             }
             
             .user-type-selector {
@@ -450,6 +474,10 @@
             .form-actions {
                 flex-direction: column;
             }
+            
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -462,11 +490,11 @@
                     <img src="swisto-logo.png" alt="SWISTO Logo" class="logo-img">
                 </div>
                 <h1>Join Kenya's Leading Emergency Procurement Platform</h1>
-                <p>Create your SWISTO account and transform how you manage emergency supplies for your hospitality business.</p>
+                <p>Create your SWISTO account and transform how you manage emergency supplies.</p>
                 
                 <ul class="hero-features">
                     <li><i class="fas fa-check-circle"></i> Connect with verified suppliers instantly</li>
-                    <li><i class="fas fa-check-circle"></i> 15-minute emergency response guarantee</li>
+                    <li><i class="fas fa-check-circle"></i> 15-minute emergency response</li>
                     <li><i class="fas fa-check-circle"></i> Real-time delivery tracking</li>
                     <li><i class="fas fa-check-circle"></i> Quality Shield protection</li>
                     <li><i class="fas fa-check-circle"></i> KRA-compliant invoicing</li>
@@ -496,19 +524,19 @@
             <div class="form-step active" id="step1">
                 <div class="step-header">
                     <h2>Choose Your Account Type</h2>
-                    <p>Select the type of account that best describes your business needs</p>
+                    <p>Select the account type that fits your business</p>
                 </div>
                 
                 <div class="user-type-selector">
                     <div class="user-type-btn active" data-type="hotel">
                         <i class="fas fa-hotel"></i>
                         <h3>Hotel Manager</h3>
-                        <p>Request emergency supplies, track deliveries, and manage procurement for your hospitality business with real-time supplier matching.</p>
+                        <p>Request emergency supplies and track deliveries for your hospitality business.</p>
                     </div>
                     <div class="user-type-btn" data-type="supplier">
                         <i class="fas fa-truck"></i>
                         <h3>Supplier Partner</h3>
-                        <p>Connect with hotels needing emergency supplies, receive instant requests, and grow your business with SWISTO's verified platform.</p>
+                        <p>Connect with hotels and grow your business with verified requests.</p>
                     </div>
                 </div>
                 
@@ -526,18 +554,18 @@
             <div class="form-step" id="step2">
                 <div class="step-header">
                     <h2 id="step2-title">Hotel Business Information</h2>
-                    <p>Tell us about your business to get started</p>
+                    <p>Tell us about your business</p>
                 </div>
                 
                 <form id="registrationForm">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="firstName">First Name *</label>
-                            <input type="text" id="firstName" required placeholder="Enter your first name">
+                            <input type="text" id="firstName" required placeholder="First name">
                         </div>
                         <div class="form-group">
                             <label for="lastName">Last Name *</label>
-                            <input type="text" id="lastName" required placeholder="Enter your last name">
+                            <input type="text" id="lastName" required placeholder="Last name">
                         </div>
                     </div>
                     
@@ -553,21 +581,21 @@
                     
                     <div class="form-group">
                         <label for="businessName" id="businessNameLabel">Hotel Name *</label>
-                        <input type="text" id="businessName" required placeholder="Enter your business name">
+                        <input type="text" id="businessName" required placeholder="Business name">
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="businessType">Business Type *</label>
                             <select id="businessType" required>
-                                <option value="">Select business type</option>
+                                <option value="">Select type</option>
                                 <!-- Options populated by JavaScript -->
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="location">Location *</label>
                             <select id="location" required>
-                                <option value="">Select your location</option>
+                                <option value="">Select location</option>
                                 <option value="nairobi">Nairobi</option>
                                 <option value="mombasa">Mombasa</option>
                                 <option value="diani">Diani</option>
@@ -581,18 +609,18 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="password">Create Password *</label>
-                            <input type="password" id="password" required placeholder="Minimum 8 characters">
+                            <input type="password" id="password" required placeholder="Min 8 characters">
                         </div>
                         <div class="form-group">
                             <label for="confirmPassword">Confirm Password *</label>
-                            <input type="password" id="confirmPassword" required placeholder="Confirm your password">
+                            <input type="password" id="confirmPassword" required placeholder="Confirm password">
                         </div>
                     </div>
                     
                     <div class="terms">
                         <label>
                             <input type="checkbox" id="termsAgreement" required>
-                            <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I understand that SWISTO will verify my business information before account activation.</span>
+                            <span>I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a>. Account requires verification.</span>
                         </label>
                     </div>
                     
@@ -614,11 +642,11 @@
                         <i class="fas fa-check-circle"></i>
                     </div>
                     <h2>Welcome to SWISTO!</h2>
-                    <p>Your account has been created successfully and is pending verification. Our team will review your business information and contact you within 24 hours.</p>
-                    <p>Check your email for confirmation and next steps to complete your account setup.</p>
+                    <p>Your account is pending verification. Our team will contact you within 24 hours.</p>
+                    <p>Check your email for confirmation and next steps.</p>
                     
-                    <div class="form-actions" style="justify-content: center; margin-top: 40px;">
-                        <button class="btn btn-primary" onclick="location.href='login.html'" style="padding: 16px 40px;">
+                    <div class="form-actions" style="justify-content: center; margin-top: 25px;">
+                        <button class="btn btn-primary" onclick="location.href='login.html'" style="padding: 12px 30px;">
                             <i class="fas fa-sign-in-alt"></i> Go to Login
                         </button>
                     </div>
@@ -668,25 +696,25 @@
                 step2Title.textContent = 'Hotel Business Information';
                 businessNameLabel.textContent = 'Hotel Name *';
                 businessTypeSelect.innerHTML = `
-                    <option value="">Select business type</option>
+                    <option value="">Select type</option>
                     <option value="hotel">Hotel/Resort</option>
                     <option value="restaurant">Restaurant</option>
-                    <option value="catering">Catering Service</option>
+                    <option value="catering">Catering</option>
                     <option value="lodge">Lodge</option>
                     <option value="guesthouse">Guesthouse</option>
-                    <option value="other">Other Hospitality Business</option>
+                    <option value="other">Other</option>
                 `;
             } else {
                 step2Title.textContent = 'Supplier Business Information';
                 businessNameLabel.textContent = 'Company Name *';
                 businessTypeSelect.innerHTML = `
-                    <option value="">Select business type</option>
-                    <option value="supplier">Supplies Distributor</option>
+                    <option value="">Select type</option>
+                    <option value="supplier">Distributor</option>
                     <option value="manufacturer">Manufacturer</option>
                     <option value="wholesaler">Wholesaler</option>
                     <option value="retailer">Retailer</option>
                     <option value="importer">Importer</option>
-                    <option value="other">Other Supply Business</option>
+                    <option value="other">Other</option>
                 `;
             }
         }
@@ -775,7 +803,7 @@
                 nextStep(3);
                 btn.innerHTML = originalText;
                 btn.disabled = false;
-            }, 2000);
+            }, 1500);
         });
         
         // Form validation
