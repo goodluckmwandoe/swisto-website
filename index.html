@@ -50,27 +50,22 @@
             transition: var(--transition);
         }
         
-       <!-- Header -->
-<header id="header">
-    <div class="container header-container">
-        <a href="#" class="logo">
-            <img src="swisto-logo.png" alt="SWISTO Logo" class="logo-img">
-        </a>
-        <div class="mobile-menu">
-            <i class="fas fa-bars"></i>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#problem">The Problem</a></li>
-                <li><a href="#solution">Our Solution</a></li>
-                <li><a href="#how-it-works">How It Works</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="login.html" class="cta-button">Login to Dashboard</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo-img {
+            height: 40px;
+        }
         
         nav ul {
             display: flex;
@@ -761,8 +756,7 @@
     <header id="header">
         <div class="container header-container">
             <a href="#" class="logo">
-                <i class="fas fa-bolt logo-icon"></i>
-                <span class="logo-text">SWISTO</span>
+                <img src="swisto-logo.png" alt="SWISTO Logo" class="logo-img">
             </a>
             <div class="mobile-menu">
                 <i class="fas fa-bars"></i>
@@ -1002,7 +996,9 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>SWISTO Kenya</h3>
+                    <div class="logo">
+                        <img src="swisto-logo.png" alt="SWISTO Logo" class="logo-img" style="height: 50px; margin-bottom: 15px;">
+                    </div>
                     <p>Eliminating operational disruptions in hospitality through reliable emergency procurement.</p>
                     <div class="contact-info">
                         <p><i class="fas fa-map-marker-alt"></i> Diani, Kwale County, Kenya</p>
@@ -1110,4 +1106,3 @@
     </script>
 </body>
 </html>
-
