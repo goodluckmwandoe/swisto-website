@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - SWISTO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a5276;
+            --primary-dark: #144260;
+            --secondary: #f39c12;
+            --secondary-dark: #e67e22;
+            --accent: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --gray: #6c757d;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .register-wrapper {
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        
+        .register-header {
+            background: var(--primary);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo-img {
+            height: 60px;
+        }
+        
+        .register-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .register-header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+        
+        .register-container {
+            padding: 40px;
+        }
+        
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .progress-steps:before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e0e0e0;
+            z-index: 1;
+        }
+        
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--gray);
+            margin-bottom: 8px;
+            transition: var(--transition);
+        }
+        
+        .step.active .step-number {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .step.completed .step-number {
+            background: var(--success);
+            color: white;
+        }
+        
+        .step-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        .step.active .step-label {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .form-step {
+            display: none;
+        }
+        
+        .form-step.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(26, 82, 118, 0.1);
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 14px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: var(--light);
+            color: var(--dark);
+            border: 1px solid #ddd;
+        }
+        
+        .btn-secondary:hover {
+            background: #e9ecef;
+        }
+        
+        .terms {
+            margin-top: 20px;
+            padding: 15px;
+            background: var(--light);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        .terms a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .terms a:hover {
+            text-decoration: underline;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .login-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .login-link a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+        
+        .success-message {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            color: var(--success);
+            margin-bottom: 20px;
+        }
+        
+        .success-message h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .success-message p {
+            color: var(--gray);
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-wrapper">
+        <div class="register-header">
+            <div class="logo">
+                <img src="swisto-logo.png" alt="SWISTO Logo" class="logo-img">
+            </div>
+            <h1>Join SWISTO Today</h1>
+            <p>Create your account and transform your procurement process</p>
+        </div>
+        
+        <div class="register-container">
+            <!-- Progress Steps -->
+            <div class="progress-steps">
+                <div class="step active" id="step1-indicator">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Account Type</div>
+                </div>
+                <div class="step" id="step2-indicator">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Business Info</div>
+                </div>
+                <div class="step" id="step3-indicator">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Complete</div>
+                </div>
+            </div>
+            
+            <!-- Step 1: Account Type -->
+            <div class="form-step active" id="step1">
+                <h2 style="margin-bottom: 20px; color: var(--primary);">Choose Your Account Type</h2>
+                <p style="color: var(--gray); margin-bottom: 25px;">Select the type of account that best describes your needs</p>
+                
+                <div class="user-type-selector" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px;">
+                    <div class="user-type-btn active" data-type="hotel">
+                        <i class="fas fa-hotel" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 12px;"></i>
+                        <span style="display: block; font-weight: 600; color: var(--dark);">Hotel Manager</span>
+                        <p style="font-size: 0.85rem; color: var(--gray); margin-top: 8px;">Request emergency supplies for your hospitality business</p>
+                    </div>
+                    <div class="user-type-btn" data-type="supplier">
+                        <i class="fas fa-truck" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 12px;"></i>
+                        <span style="display: block; font-weight: 600; color: var(--dark);">Supplier</span>
+                        <p style="font-size: 0.85rem; color: var(--gray); margin-top: 8px;">Provide supplies to hotels and earn revenue</p>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="btn btn-secondary" onclick="location.href='login.html'">
+                        <i class="fas fa-arrow-left"></i> Back to Login
+                    </button>
+                    <button class="btn btn-primary" onclick="nextStep(2)">
+                        Continue <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Step 2: Business Information -->
+            <div class="form-step" id="step2">
+                <h2 style="margin-bottom: 20px; color: var(--primary);">Business Information</h2>
+                <p style="color: var(--gray); margin-bottom: 25px;">Tell us about your business</p>
+                
+                <form id="registrationForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" required placeholder="your.email@example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" required placeholder="+254 XXX XXX XXX">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="businessName">Business Name *</label>
+                        <input type="text" id="businessName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="businessType">Business Type *</label>
+                        <select id="businessType" required>
+                            <option value="">Select business type</option>
+                            <option value="hotel">Hotel/Resort</option>
+                            <option value="restaurant">Restaurant</option>
+                            <option value="catering">Catering Service</option>
+                            <option value="supplier">Supplies Distributor</option>
+                            <option value="manufacturer">Manufacturer</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location">Location *</label>
+                        <select id="location" required>
+                            <option value="">Select your location</option>
+                            <option value="nairobi">Nairobi</option>
+                            <option value="mombasa">Mombasa</option>
+                            <option value="diani">Diani</option>
+                            <option value="kisumu">Kisumu</option>
+                            <option value="nakuru">Nakuru</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Create Password *</label>
+                        <input type="password" id="password" required placeholder="Minimum 8 characters">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password *</label>
+                        <input type="password" id="confirmPassword" required>
+                    </div>
+                    
+                    <div class="terms">
+                        <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
+                            <input type="checkbox" required style="margin-top: 3px;">
+                            <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I understand that SWISTO will verify my business information before account activation.</span>
+                        </label>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep(1)">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Create Account <i class="fas fa-check"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Step 3: Success -->
+            <div class="form-step" id="step3">
+                <div class="success-message">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2>Account Created Successfully!</h2>
+                    <p>Your SWISTO account has been created and is pending verification. We'll review your business information and contact you within 24 hours.</p>
+                    <p>Check your email for confirmation and next steps.</p>
+                    
+                    <div class="form-actions" style="justify-content: center;">
+                        <button class="btn btn-primary" onclick="location.href='login.html'">
+                            <i class="fas fa-sign-in-alt"></i> Go to Login
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        let accountType = 'hotel';
+        
+        // User type selection
+        const userTypeBtns = document.querySelectorAll('.user-type-btn');
+        userTypeBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                userTypeBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                accountType = this.getAttribute('data-type');
+            });
+        });
+        
+        // Step navigation
+        function nextStep(step) {
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            document.getElementById(`step${currentStep}-indicator`).classList.remove('active');
+            
+            currentStep = step;
+            
+            document.getElementById(`step${currentStep}`).classList.add('active');
+            document.getElementById(`step${currentStep}-indicator`).classList.add('active');
+            
+            // Mark previous step as completed
+            if (step > 1) {
+                document.getElementById(`step${step-1}-indicator`).classList.add('completed');
+            }
+        }
+        
+        function prevStep(step) {
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            document.getElementById(`step${currentStep}-indicator`).classList.remove('active');
+            
+            currentStep = step;
+            
+            document.getElementById(`step${currentStep}`).classList.add('active');
+            document.getElementById(`step${currentStep}-indicator`).classList.add('active');
+        }
+        
+        // Form submission
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Password validation
+            if (password !== confirmPassword) {
+                alert('Passwords do not match. Please try again.');
+                return;
+            }
+            
+            if (password.length < 8) {
+                alert('Password must be at least 8 characters long.');
+                return;
+            }
+            
+            // Show loading state
+            const btn = this.querySelector('.btn-primary');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+            btn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                nextStep(3);
+            }, 2000);
+        });
+        
+        // Dynamic form updates based on account type
+        userTypeBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const businessTypeSelect = document.getElementById('businessType');
+                if (accountType === 'hotel') {
+                    businessTypeSelect.innerHTML = `
+                        <option value="">Select business type</option>
+                        <option value="hotel">Hotel/Resort</option>
+                        <option value="restaurant">Restaurant</option>
+                        <option value="catering">Catering Service</option>
+                        <option value="lodge">Lodge</option>
+                        <option value="other">Other</option>
+                    `;
+                } else {
+                    businessTypeSelect.innerHTML = `
+                        <option value="">Select business type</option>
+                        <option value="supplier">Supplies Distributor</option>
+                        <option value="manufacturer">Manufacturer</option>
+                        <option value="wholesaler">Wholesaler</option>
+                        <option value="retailer">Retailer</option>
+                        <option value="other">Other</option>
+                    `;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
