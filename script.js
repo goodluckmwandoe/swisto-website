@@ -2,9 +2,9 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-// 2. Your Firebase Configuration
+// 2. Your Firebase Configuration (Updated with the New Key)
 const firebaseConfig = {
-  apiKey: "AIzaSyBdZ_tWHds0XjcAzA0XzM2DgejAtK-1YeQ",
+  apiKey: "AIzaSyBx9xBzBvaz0dQ0Iln4yVT5jCzFEjETmww",
   authDomain: "swisto-kenya.firebaseapp.com",
   projectId: "swisto-kenya",
   storageBucket: "swisto-kenya.firebasestorage.app",
@@ -86,4 +86,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-
