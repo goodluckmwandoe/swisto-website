@@ -48,11 +48,11 @@
             </form>
 
             <div class="demo-accounts">
-                <h3 style="font-size: 1rem; margin-bottom: 15px; text-align: center; color: var(--gray);">Quick Demo Access</h3>
-                <div class="demo-account" data-email="hotel@swisto.demo" data-password="demo123" data-type="hotel">
+                <h3 style="font-size: 1rem; margin-bottom: 15px; text-align: center; color: var(--gray);">Quick Demo Access (Fill only)</h3>
+                <div class="demo-account" data-email="hotel@test.com" data-password="password123" data-type="hotel">
                     <strong>Hotel Manager Demo</strong>
                 </div>
-                <div class="demo-account" data-email="supplier@swisto.demo" data-password="demo123" data-type="supplier">
+                <div class="demo-account" data-email="supplier@test.com" data-password="password123" data-type="supplier">
                     <strong>Supplier Demo</strong>
                 </div>
             </div>
@@ -63,6 +63,7 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- The module type is critical for Firebase to work -->
+    <script type="module" src="script.js"></script>
 </body>
 </html>
