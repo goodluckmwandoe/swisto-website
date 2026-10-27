@@ -3,374 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SWISTO - Login to Dashboard</title>
+    <title>Login - SWISTO</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #1a5276;
-            --primary-dark: #144260;
-            --secondary: #f39c12;
-            --secondary-dark: #e67e22;
-            --accent: #e74c3c;
-            --light: #f8f9fa;
-            --dark: #2c3e50;
-            --success: #27ae60;
-            --gray: #6c757d;
-            --transition: all 0.3s ease;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        
-        .login-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            max-width: 1000px;
-            width: 100%;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-            overflow: hidden;
-            min-height: 600px;
-        }
-        
-        .login-hero {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .login-hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
-            opacity: 0.1;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            margin-bottom: 30px;
-            justify-content: center;
-        }
-        
-        .logo-img {
-            height: 80px;
-        }
-        
-        .login-hero h1 {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            line-height: 1.3;
-            text-align: center;
-        }
-        
-        .login-hero p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            margin-bottom: 30px;
-            line-height: 1.6;
-            text-align: center;
-        }
-        
-        .hero-features {
-            list-style: none;
-            margin-top: 30px;
-        }
-        
-        .hero-features li {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            font-size: 1rem;
-        }
-        
-        .hero-features i {
-            color: var(--secondary);
-            margin-right: 12px;
-            font-size: 1.2rem;
-        }
-        
-        .login-container {
-            padding: 50px 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .login-header {
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        
-        .login-header h2 {
-            font-size: 1.8rem;
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-        
-        .login-header p {
-            color: var(--gray);
-            font-size: 1rem;
-        }
-        
-        .user-type-selector {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        
-        .user-type-btn {
-            padding: 20px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            background: white;
-            cursor: pointer;
-            transition: var(--transition);
-            text-align: center;
-        }
-        
-        .user-type-btn.active {
-            border-color: var(--primary);
-            background: rgba(26, 82, 118, 0.05);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(26, 82, 118, 0.1);
-        }
-        
-        .user-type-btn i {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 12px;
-        }
-        
-        .user-type-btn span {
-            display: block;
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 1rem;
-        }
-        
-        .form-group {
-            margin-bottom: 25px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 1rem;
-        }
-        
-        .form-group input {
-            width: 100%;
-            padding: 16px 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-        
-        .form-group input:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(26, 82, 118, 0.1);
-        }
-        
-        .login-btn {
-            width: 100%;
-            padding: 18px;
-            background: var(--secondary);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-bottom: 25px;
-        }
-        
-        .login-btn:hover {
-            background: var(--secondary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(243, 156, 18, 0.3);
-        }
-        
-        .login-links {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .login-links a {
-            color: var(--primary);
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: var(--transition);
-            margin: 0 10px;
-        }
-        
-        .login-links a:hover {
-            color: var(--primary-dark);
-            text-decoration: underline;
-        }
-        
-        .demo-accounts {
-            background: var(--light);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
-        }
-        
-        .demo-accounts h3 {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            color: var(--dark);
-            text-align: center;
-        }
-        
-        .demo-account {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: var(--transition);
-            border: 1px solid #e0e0e0;
-        }
-        
-        .demo-account:hover {
-            background: #f8f9fa;
-            border-color: var(--primary);
-            transform: translateX(5px);
-        }
-        
-        .demo-account:last-child {
-            margin-bottom: 0;
-        }
-        
-        .demo-account .role {
-            font-weight: 600;
-            color: var(--primary);
-        }
-        
-        .demo-account .credentials {
-            color: var(--gray);
-            font-size: 0.85rem;
-        }
-        
-        .back-to-home {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-        }
-        
-        .back-to-home a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .back-to-home a:hover {
-            color: var(--primary-dark);
-            gap: 12px;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .login-wrapper {
-                grid-template-columns: 1fr;
-                max-width: 450px;
-            }
-            
-            .login-hero {
-                display: none;
-            }
-            
-            .login-container {
-                padding: 40px 30px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .login-container {
-                padding: 30px 20px;
-            }
-            
-            .user-type-btn {
-                padding: 15px 10px;
-            }
-            
-            .user-type-btn i {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body style="background: #f3f4f6;">
+    
     <div class="login-wrapper">
-        <!-- Left Side - Hero Section -->
+        <!-- Left Side -->
         <div class="login-hero">
-            <div class="hero-content">
-                <div class="logo">
-                    <img src="swisto-logo.png" alt="SWISTO Logo" class="logo-img">
-                </div>
-                <h1>Transform Your Emergency Procurement Process</h1>
-                <p>Access your dedicated dashboard to manage emergency supplies, track deliveries, and connect with verified suppliers in real-time.</p>
-                
-                <ul class="hero-features">
-                    <li><i class="fas fa-check-circle"></i> 15-minute emergency response time</li>
-                    <li><i class="fas fa-check-circle"></i> Real-time order tracking</li>
-                    <li><i class="fas fa-check-circle"></i> Quality Shield guarantee</li>
-                    <li><i class="fas fa-check-circle"></i> KRA-compliant invoicing</li>
-                    <li><i class="fas fa-check-circle"></i> Multi-supplier competitive quotes</li>
-                </ul>
-            </div>
+            <img src="swisto-logo.png" alt="SWISTO Logo">
+            <h1>Transform Your Emergency Procurement</h1>
+            <p style="margin-top: 15px; opacity: 0.9;">Access your dashboard to manage emergency supplies and track deliveries.</p>
         </div>
-        
-        <!-- Right Side - Login Form -->
-        <div class="login-container">
-            <div class="login-header">
-                <h2>Welcome Back</h2>
-                <p>Sign in to your SWISTO dashboard</p>
+
+        <!-- Right Side -->
+        <div class="login-form-container">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h2 style="color: var(--primary);">Welcome Back</h2>
+                <p style="color: var(--gray);">Sign in to your SWISTO dashboard</p>
             </div>
-            
+
             <div class="user-type-selector">
                 <div class="user-type-btn active" data-type="hotel">
                     <i class="fas fa-hotel"></i>
@@ -381,129 +34,35 @@
                     <span>Supplier</span>
                 </div>
             </div>
-            
+
             <form id="loginForm">
                 <div class="form-group">
-                    <label for="email">Email Address</label>
+                    <label>Email Address</label>
                     <input type="email" id="email" required placeholder="your.email@example.com">
                 </div>
-                
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label>Password</label>
                     <input type="password" id="password" required placeholder="Enter your password">
                 </div>
-                
-                <button type="submit" class="login-btn">
-                    <i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i>
-                    Login to Dashboard
-                </button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
             </form>
-            
-            <div class="login-links">
-                <a href="forgot-password.html"><i class="fas fa-key"></i> Forgot Password?</a>
-                <a href="create-account.html"><i class="fas fa-user-plus"></i> Create Account</a>
-            </div>
-            
+
             <div class="demo-accounts">
-                <h3><i class="fas fa-rocket" style="margin-right: 8px;"></i>Quick Demo Access</h3>
+                <h3 style="font-size: 1rem; margin-bottom: 15px; text-align: center; color: var(--gray);">Quick Demo Access</h3>
                 <div class="demo-account" data-email="hotel@swisto.demo" data-password="demo123" data-type="hotel">
-                    <div>
-                        <div class="role">Hotel Manager</div>
-                        <div class="credentials">Experience hotel dashboard features</div>
-                    </div>
-                    <i class="fas fa-chevron-right"></i>
+                    <strong>Hotel Manager Demo</strong>
                 </div>
                 <div class="demo-account" data-email="supplier@swisto.demo" data-password="demo123" data-type="supplier">
-                    <div>
-                        <div class="role">Supplier Partner</div>
-                        <div class="credentials">Explore supplier portal capabilities</div>
-                    </div>
-                    <i class="fas fa-chevron-right"></i>
+                    <strong>Supplier Demo</strong>
                 </div>
             </div>
-            
-            <div class="back-to-home">
-                <a href="index.html">
-                    <i class="fas fa-arrow-left"></i>
-                    Back to Main Website
-                </a>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="index.html" style="color: var(--gray); text-decoration: none;"><i class="fas fa-arrow-left"></i> Back to Home</a>
             </div>
         </div>
     </div>
 
-    <script>
-        // User type selection
-        const userTypeBtns = document.querySelectorAll('.user-type-btn');
-        userTypeBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                userTypeBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-        
-        // Demo account auto-fill
-        const demoAccounts = document.querySelectorAll('.demo-account');
-        demoAccounts.forEach(account => {
-            account.addEventListener('click', function() {
-                const email = this.getAttribute('data-email');
-                const password = this.getAttribute('data-password');
-                const type = this.getAttribute('data-type');
-                
-                document.getElementById('email').value = email;
-                document.getElementById('password').value = password;
-                
-                // Set user type
-                userTypeBtns.forEach(btn => btn.classList.remove('active'));
-                document.querySelector(`.user-type-btn[data-type="${type}"]`).classList.add('active');
-                
-                // Visual feedback
-                this.style.background = 'rgba(26, 82, 118, 0.05)';
-                this.style.borderColor = 'var(--primary)';
-                setTimeout(() => {
-                    this.style.background = '';
-                    this.style.borderColor = '';
-                }, 1000);
-            });
-        });
-        
-        // Login form submission
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const userType = document.querySelector('.user-type-btn.active').getAttribute('data-type');
-            
-            // Simple validation
-            if (email && password) {
-                const btn = this.querySelector('.login-btn');
-                const originalText = btn.innerHTML;
-                
-                // Loading state
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
-                btn.disabled = true;
-                
-                setTimeout(() => {
-                    // Redirect to appropriate dashboard
-                    if (userType === 'hotel') {
-                        window.location.href = 'hotel-dashboard.html';
-                    } else {
-                        window.location.href = 'supplier-dashboard.html';
-                    }
-                }, 1500);
-            }
-        });
-        
-        // Add some interactive effects
-        document.querySelectorAll('.form-group input').forEach(input => {
-            input.addEventListener('focus', function() {
-                this.parentElement.style.transform = 'translateY(-2px)';
-            });
-            
-            input.addEventListener('blur', function() {
-                this.parentElement.style.transform = 'translateY(0)';
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
