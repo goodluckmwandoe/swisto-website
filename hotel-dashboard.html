@@ -56,8 +56,10 @@
                 </div>
             </div>
 
-            <div class="orders-section">
-                <!-- Orders will be loaded here by the script below -->
+            <div class="orders-section" id="ordersContainer">
+                <h2 class="section-title"><i class="fas fa-clock"></i> My Recent Orders</h2>
+                <button class="btn btn-primary" onclick="submitOrder()" style="margin-bottom: 20px;">+ Create Test Order</button>
+                <p style="color: #94a3b8;">Loading orders...</p>
             </div>
         </main>
     </div>
@@ -66,7 +68,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-        // YOUR FIREBASE CONFIG IS PASTED HERE
         const firebaseConfig = {
             apiKey: "AIzaSyBdZ_tWHds0XjcAzA0XzM2DgejAtK-1YeQ",
             authDomain: "swisto-kenya.firebaseapp.com",
@@ -80,7 +81,7 @@
         const db = getFirestore(app);
         
         const user = JSON.parse(localStorage.getItem('swisto_user'));
-        if(!user) window.location.href = 'login.html';
+        if(!user || user.role !== 'hotel') window.location.href = 'login.html';
 
         window.submitOrder = async function() {
             const items = prompt("What emergency items do you need?");
@@ -100,7 +101,7 @@
 
         async function loadOrders() {
             const querySnapshot = await getDocs(collection(db, "orders"));
-            const container = document.querySelector('.orders-section');
+            const container = document.getElementById('ordersContainer');
             
             container.innerHTML = `
                 <h2 class="section-title"><i class="fas fa-clock"></i> My Recent Orders</h2>
