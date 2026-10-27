@@ -14,16 +14,18 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Mobile Menu Toggle
+  // 1. Mobile Menu Toggle
   const mobileMenuBtn = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('.nav-menu');
   if (mobileMenuBtn && navMenu) {
     mobileMenuBtn.addEventListener('click', () => navMenu.classList.toggle('active'));
   }
 
-  // Login Form Logic
+  // 2. Login Logic
   const loginForm = document.getElementById('loginForm');
   if (loginForm) {
+    
+    // Toggle Role
     document.querySelectorAll('.user-type-btn').forEach(btn => {
       btn.addEventListener('click', function() {
         document.querySelectorAll('.user-type-btn').forEach(b => b.classList.remove('active'));
@@ -31,8 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
+    // Submit Form
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
       const role = document.querySelector('.user-type-btn.active').getAttribute('data-type');
@@ -44,24 +48,26 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         
+        // Save login to browser memory
         localStorage.setItem('swisto_user', JSON.stringify({ 
             email: userCredential.user.email, 
             role: role 
         }));
 
+        // Redirect
         if (role === 'hotel') {
           window.location.href = 'hotel-dashboard.html';
         } else {
           window.location.href = 'supplier-dashboard.html';
         }
       } catch (error) {
-        alert("Login Error: " + error.message + "\n\nMake sure you created this user in Firebase Authentication!");
+        alert("Login Error: " + error.message + "\n\nMake sure you created this exact user in Firebase Authentication.");
         btn.innerHTML = 'Login';
         btn.disabled = false;
       }
     });
 
-    // Demo Auto-fill
+    // Auto-fill Demo Accounts
     document.querySelectorAll('.demo-account').forEach(account => {
       account.addEventListener('click', function() {
         document.getElementById('email').value = this.getAttribute('data-email');
