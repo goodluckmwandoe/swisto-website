@@ -56,8 +56,9 @@
                 </div>
             </div>
 
-            <div class="requests-section">
-                <!-- Requests will be loaded here by the script below -->
+            <div class="requests-section" id="requestsContainer">
+                <h2 class="section-title"><i class="fas fa-bell"></i> Incoming Hotel Requests</h2>
+                <p style="color: #94a3b8;">Loading requests...</p>
             </div>
         </main>
     </div>
@@ -66,7 +67,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getFirestore, collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-        // YOUR FIREBASE CONFIG IS PASTED HERE
         const firebaseConfig = {
             apiKey: "AIzaSyBdZ_tWHds0XjcAzA0XzM2DgejAtK-1YeQ",
             authDomain: "swisto-kenya.firebaseapp.com",
@@ -80,7 +80,7 @@
         const db = getFirestore(app);
         
         const user = JSON.parse(localStorage.getItem('swisto_user'));
-        if(!user) window.location.href = 'login.html';
+        if(!user || user.role !== 'supplier') window.location.href = 'login.html';
 
         window.submitQuote = async function(orderId) {
             const price = prompt("Enter your quote price in KSh:");
@@ -93,19 +93,20 @@
                 supplierEmail: user.email
             });
             
-            alert("Quote submitted!");
+            alert("Quote submitted successfully!");
             window.location.reload();
         }
 
         async function loadRequests() {
             const querySnapshot = await getDocs(collection(db, "orders"));
-            const container = document.querySelector('.requests-section');
+            const container = document.getElementById('requestsContainer');
             
             container.innerHTML = `<h2 class="section-title"><i class="fas fa-bell"></i> Incoming Hotel Requests</h2>`;
             
             let hasRequests = false;
             querySnapshot.forEach((doc) => {
                 const order = doc.data();
+                // Only show orders that haven't been quoted yet
                 if (order.status === "pending") {
                     hasRequests = true;
                     container.innerHTML += `
