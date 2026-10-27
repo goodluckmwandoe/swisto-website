@@ -19,7 +19,7 @@
                 <div style="font-weight: 600; font-size: 0.9rem;">Hotel Manager</div>
                 <div style="font-size: 0.8rem; color: var(--gray);">Beachfront Resort</div>
             </div>
-            <button class="logout-btn" onclick="location.href='login.html'"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            <button class="logout-btn" onclick="localStorage.removeItem('swisto_user'); location.href='login.html'"><i class="fas fa-sign-out-alt"></i> Logout</button>
         </div>
     </header>
 
@@ -57,41 +57,80 @@
             </div>
 
             <div class="orders-section">
-                <h2 class="section-title"><i class="fas fa-clock"></i> Recent Emergency Orders</h2>
-                
-                <div class="order-card">
-                    <div class="order-header">
-                        <div class="order-id">#SW-2023-0876</div>
-                        <div class="status-urgent">URGENT</div>
-                    </div>
-                    <p><strong>Items:</strong> Toilet paper, Hand soap, Sanitizer</p>
-                    <p><strong>Quotes Received:</strong> 3/5</p>
-                </div>
-
-                <div class="order-card">
-                    <div class="order-header">
-                        <div class="order-id">#SW-2023-0875</div>
-                        <div class="status-confirmed">CONFIRMED</div>
-                    </div>
-                    <p><strong>Items:</strong> Cleaning chemicals, Detergents</p>
-                    <p><strong>Supplier:</strong> CleanPro Supplies</p>
-                </div>
-            </div>
-
-            <h2 class="section-title"><i class="fas fa-bolt"></i> Quick Actions</h2>
-            <div class="quick-actions">
-                <div class="action-card">
-                    <i class="fas fa-plus-circle"></i>
-                    <h3>New Emergency</h3>
-                </div>
-                <div class="action-card">
-                    <i class="fas fa-file-invoice"></i>
-                    <h3>View Invoices</h3>
-                </div>
+                <!-- Orders will be loaded here by the script below -->
             </div>
         </main>
     </div>
 
-    <script src="script.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        // YOUR FIREBASE CONFIG IS PASTED HERE
+        const firebaseConfig = {
+            apiKey: "AIzaSyBdZ_tWHds0XjcAzA0XzM2DgejAtK-1YeQ",
+            authDomain: "swisto-kenya.firebaseapp.com",
+            projectId: "swisto-kenya",
+            storageBucket: "swisto-kenya.firebasestorage.app",
+            messagingSenderId: "328714398565",
+            appId: "1:328714398565:web:1fb61ec84d64e774ad4f8c"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        
+        const user = JSON.parse(localStorage.getItem('swisto_user'));
+        if(!user) window.location.href = 'login.html';
+
+        window.submitOrder = async function() {
+            const items = prompt("What emergency items do you need?");
+            if (!items) return;
+
+            await addDoc(collection(db, "orders"), {
+                hotelEmail: user.email,
+                items: items,
+                urgency: "urgent",
+                status: "pending",
+                timestamp: new Date()
+            });
+            
+            alert("Order saved to Cloud Database!");
+            window.location.reload();
+        }
+
+        async function loadOrders() {
+            const querySnapshot = await getDocs(collection(db, "orders"));
+            const container = document.querySelector('.orders-section');
+            
+            container.innerHTML = `
+                <h2 class="section-title"><i class="fas fa-clock"></i> My Recent Orders</h2>
+                <button class="btn btn-primary" onclick="submitOrder()" style="margin-bottom: 20px;">+ Create Test Order</button>
+            `;
+            
+            let hasOrders = false;
+            querySnapshot.forEach((doc) => {
+                const order = doc.data();
+                if (order.hotelEmail === user.email) {
+                    hasOrders = true;
+                    container.innerHTML += `
+                        <div class="order-card">
+                            <div class="order-header">
+                                <div class="order-id">Order #${doc.id.slice(-5)}</div>
+                                <div class="status-${order.urgency}">${order.urgency.toUpperCase()}</div>
+                            </div>
+                            <p><strong>Items:</strong> ${order.items}</p>
+                            <p><strong>Status:</strong> ${order.status}</p>
+                        </div>
+                    `;
+                }
+            });
+            
+            if(!hasOrders) {
+                container.innerHTML += `<p style="color: #94a3b8;">No orders found. Click the button above to create one.</p>`;
+            }
+        }
+        
+        loadOrders();
+    </script>
 </body>
 </html>
