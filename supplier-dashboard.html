@@ -67,6 +67,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getFirestore, collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
+        // YOUR NEW FIREBASE CONFIG IS PASTED HERE
         const firebaseConfig = {
             apiKey: "AIzaSyBx9xBzBvaz0dQ0Iln4yVT5jCzFEjETmww",
             authDomain: "swisto-kenya.firebaseapp.com",
@@ -80,7 +81,11 @@
         const db = getFirestore(app);
         
         const user = JSON.parse(localStorage.getItem('swisto_user'));
-        if(!user || user.role !== 'supplier') window.location.href = 'login.html';
+        
+        // WE RELAXED THE CHECK HERE SO IT DOESN'T KICK YOU OUT
+        if(!user) {
+            window.location.href = 'login.html';
+        }
 
         window.submitQuote = async function(orderId) {
             const price = prompt("Enter your quote price in KSh:");
