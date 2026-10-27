@@ -19,7 +19,7 @@
                 <div style="font-weight: 600; font-size: 0.9rem;">Supplier Partner</div>
                 <div style="font-size: 0.8rem; color: var(--gray);">CleanPro Supplies Ltd</div>
             </div>
-            <button class="logout-btn" onclick="location.href='login.html'"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            <button class="logout-btn" onclick="localStorage.removeItem('swisto_user'); location.href='login.html'"><i class="fas fa-sign-out-alt"></i> Logout</button>
         </div>
     </header>
 
@@ -40,7 +40,7 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <h3>New Requests</h3>
-                    <div class="value" style="color: var(--secondary);">5</div>
+                    <div class="value" style="color: var(--secondary);">Live</div>
                 </div>
                 <div class="stat-card">
                     <h3>Active Quotes</h3>
@@ -57,31 +57,76 @@
             </div>
 
             <div class="requests-section">
-                <h2 class="section-title"><i class="fas fa-bell"></i> Recent Emergency Requests</h2>
-                
-                <div class="request-card">
-                    <div class="request-header">
-                        <div class="order-id">#SW-2023-0876</div>
-                        <div class="status-urgent">URGENT</div>
-                    </div>
-                    <p><strong>Items:</strong> Toilet paper (10 cartons), Hand soap (5 boxes)</p>
-                    <p><strong>Hotel:</strong> Beachfront Resort Diani</p>
-                    <p><strong>Budget:</strong> KSh 15,000</p>
-                    <button class="btn btn-primary" style="margin-top: 10px;">Submit Quote</button>
-                </div>
-
-                <div class="request-card">
-                    <div class="request-header">
-                        <div class="order-id">#SW-2023-0874</div>
-                        <div class="status-confirmed" style="background: var(--primary);">QUOTE SUBMITTED</div>
-                    </div>
-                    <p><strong>Items:</strong> Cleaning chemicals, Detergents</p>
-                    <p><strong>Your Quote:</strong> KSh 12,300</p>
-                </div>
+                <!-- Requests will be loaded here by the script below -->
             </div>
         </main>
     </div>
 
-    <script src="script.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        // YOUR FIREBASE CONFIG IS PASTED HERE
+        const firebaseConfig = {
+            apiKey: "AIzaSyBdZ_tWHds0XjcAzA0XzM2DgejAtK-1YeQ",
+            authDomain: "swisto-kenya.firebaseapp.com",
+            projectId: "swisto-kenya",
+            storageBucket: "swisto-kenya.firebasestorage.app",
+            messagingSenderId: "328714398565",
+            appId: "1:328714398565:web:1fb61ec84d64e774ad4f8c"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        
+        const user = JSON.parse(localStorage.getItem('swisto_user'));
+        if(!user) window.location.href = 'login.html';
+
+        window.submitQuote = async function(orderId) {
+            const price = prompt("Enter your quote price in KSh:");
+            if (!price) return;
+
+            const orderRef = doc(db, "orders", orderId);
+            await updateDoc(orderRef, {
+                status: "quoted",
+                quotePrice: price,
+                supplierEmail: user.email
+            });
+            
+            alert("Quote submitted!");
+            window.location.reload();
+        }
+
+        async function loadRequests() {
+            const querySnapshot = await getDocs(collection(db, "orders"));
+            const container = document.querySelector('.requests-section');
+            
+            container.innerHTML = `<h2 class="section-title"><i class="fas fa-bell"></i> Incoming Hotel Requests</h2>`;
+            
+            let hasRequests = false;
+            querySnapshot.forEach((doc) => {
+                const order = doc.data();
+                if (order.status === "pending") {
+                    hasRequests = true;
+                    container.innerHTML += `
+                        <div class="request-card">
+                            <div class="order-header">
+                                <div class="order-id">Request #${doc.id.slice(-5)}</div>
+                                <div class="status-urgent">PENDING</div>
+                            </div>
+                            <p><strong>Items Needed:</strong> ${order.items}</p>
+                            <button class="btn btn-primary" onclick="submitQuote('${doc.id}')" style="margin-top: 10px;">Submit Quote</button>
+                        </div>
+                    `;
+                }
+            });
+
+            if(!hasRequests) {
+                container.innerHTML += `<p style="color: #94a3b8;">No pending requests right now. Waiting for hotels to submit orders...</p>`;
+            }
+        }
+        
+        loadRequests();
+    </script>
 </body>
 </html>
